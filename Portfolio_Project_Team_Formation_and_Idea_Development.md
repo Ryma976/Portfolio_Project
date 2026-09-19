@@ -71,12 +71,23 @@ The project began with an initial team meeting to introduce members, share backg
 
 ---
 
-## 2. Ideas Explored
+## 2. Research and Ideas Explored
 
-### 2.1 Brainstorming Process
-The team discussed and researched multiple project directions before evaluating them against feasibility, impact, technical alignment, and scalability.
+### 2.1 Research Process
+Before the group discussion, the team members looked at problems faced by people in their communities and at existing online services related to small businesses, training, supplies, pricing, and delivery. This helped the team identify areas where services were spread across different platforms and where a simpler combined solution could be useful.
 
-### 2.2 Ideas Generated and Evaluated
+The team shared the findings and discussed which problems were common, practical to address, and suitable for a project that could be developed within the available time.
+
+### 2.2 Brainstorming Process
+The team started by discussing different project ideas based on personal experiences, common problems in the community, and each member's technical interests. Every team member suggested ideas and explained the problem each idea could solve.
+
+The team then compared the ideas by looking at the target users, useful features, technical difficulty, expected impact, and possible challenges. After discussing the strengths and weaknesses of each idea, we selected the idea that seemed most useful, realistic, and suitable for our team.
+
+During the discussions, we noticed that many home-based and family businesses in Saudi Arabia face similar challenges. These include finding affordable materials and packaging, setting suitable product prices, finding useful training, and contacting reliable service providers.
+
+Based on these challenges, we developed the idea of Maksab: a platform that brings these services together and helps home-based businesses manage and grow their work.
+
+### 2.3 Ideas Generated and Evaluated
 
 #### Idea 1: Riyadh Neighborhood Guide
 **Idea Owner:** Shahad Alharbi
