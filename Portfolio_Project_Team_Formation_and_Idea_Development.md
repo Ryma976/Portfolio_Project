@@ -115,8 +115,32 @@ The team discussed and researched multiple project directions before evaluating 
 | Friendly, approachable product concept. | Lower overall social/economic impact compared to alternatives. |
 
 **Reason for Rejection:** The idea does not serve all members of the community — its audience is narrower than the broad, high-impact MVP the team wanted to build.
+# Idea 3: NextCairn – Curriculum Analytics & Continuous Improvement Platform
 
-#### Idea 3: Maksab – Platform for Home-Based & Family-Production Businesses ✅ Selected
+**Idea Owner:** Team
+
+**Overview:** An evidence-based educational data platform that converts student friction and learning blockers into actionable curriculum task metrics to measure the impact of curriculum modifications across consecutive cohorts.
+
+**Problem Addressed:** Educational institutions rely heavily on subjective instructor feedback to modify courses, losing institutional memory when instructors leave and lacking data to pinpoint specific task friction.
+
+**Target Audience:** Curriculum Managers, Educational Institutions, Bootcamps, and Instructors.
+
+**Key Features:** Curriculum Improvement Dashboard, Cohort Friction Analytics, Task Health Cards, Automated Reports, and Student Knowledge Base.
+
+
+### Strengths & Weaknesses
+
+| Strengths | Weaknesses |
+| :--- | :--- |
+| **High Institutional Value:** Builds permanent institutional memory for educational providers. | **Dependency on Student Input:** Requires consistent student reporting to generate reliable analytics. |
+| **Data-Driven & Measurable:** Replaces intuition with quantifiable "Before vs. After" metrics. | **Narrow Utility:** Strictly focused on educational curriculum management. |
+
+---
+
+**Reason for Rejection:** Although it provides strong educational analytics, the team chose to focus on a solution with broader economic impact for local micro-entrepreneurs (**Maksab**).
+
+---
+#### Idea 4: Maksab – Platform for Home-Based & Family-Production Businesses ✅ Selected
 **Idea Owner:** Team
 
 **Overview:** A unified digital platform empowering Saudi home-based and family-production businesses to move from hobby to sustainable enterprise.
@@ -140,6 +164,7 @@ The team discussed and researched multiple project directions before evaluating 
 
 | Idea | Feasibility | Potential Impact | Technical Alignment | Scalability | Total |
 |---|---|---|---|---|---|
+| NextCairn | 3/5 | 4/5 | 3/5 | 3/5 | 13/20 |
 | Riyadh Neighborhood Guide | 4/5 | 3/5 | 4/5 | 3/5 | 14/20 |
 | PetCare | 4/5 | 2/5 | 4/5 | 3/5 | 13/20 |
 | **Maksab** | 5/5 | 5/5 | 5/5 | 5/5 | **20/20** |
