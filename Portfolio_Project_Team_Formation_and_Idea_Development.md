@@ -1,4 +1,16 @@
 # Portfolio Project – Team Formation and Idea Development
+
+**Project:** Maksab (مَكْسَب)
+**Stage:** 1 – Team Formation and Idea Development
+**Team:** Bayadir Aldossari, Reem Alanazi, Shomokh Aldosari, Shahad Alharbi
+**Document Version:** 1.0
+
+## Contents
+
+1. [Team Formation Overview](#1-team-formation-overview)
+2. [Research and Ideas Explored](#2-research-and-ideas-explored)
+3. [Selected MVP Concept](#3-selected-mvp-concept)
+
 ## 0. Team Formation
 
 Our team consists of 4 developers with complementary skills in Full-Stack Development, Software Architecture, and User Experience:
@@ -126,7 +138,7 @@ Based on these challenges, we developed the idea of Maksab: a platform that brin
 | Friendly, approachable product concept. | Lower overall social/economic impact compared to alternatives. |
 
 **Reason for Rejection:** The idea does not serve all members of the community — its audience is narrower than the broad, high-impact MVP the team wanted to build.
-# Idea 3: NextCairn – Curriculum Analytics & Continuous Improvement Platform
+#### Idea 3: NextCairn – Curriculum Analytics & Continuous Improvement Platform
 
 **Idea Owner:** Team
 
@@ -171,7 +183,14 @@ Based on these challenges, we developed the idea of Maksab: a platform that brin
 
 **Reason for Selection:** Highest evaluation score — realistic, solves a real problem from the team's own context, and serves a broad, underserved segment (unlike PetCare) with an original angle (unlike the Riyadh guide).
 
-### 2.3 Evaluation Summary
+### 2.4 Evaluation Criteria and Summary
+
+The team evaluated each idea using four criteria:
+
+- **Feasibility:** Whether the idea can be built with the team's skills and within the available time.
+- **Potential Impact:** How much value the idea could provide to its target users.
+- **Technical Alignment:** How well the idea matches the team's current technical knowledge and learning goals.
+- **Scalability:** Whether the idea can support additional users, features, or markets in the future.
 
 | Idea | Feasibility | Potential Impact | Technical Alignment | Scalability | Total |
 |---|---|---|---|---|---|
@@ -180,7 +199,7 @@ Based on these challenges, we developed the idea of Maksab: a platform that brin
 | PetCare | 4/5 | 2/5 | 4/5 | 3/5 | 13/20 |
 | **Maksab** | 5/5 | 5/5 | 5/5 | 5/5 | **20/20** |
 
-*[Scores above are a starting draft — adjust to match the team's actual discussion before submitting.]*
+Maksab received the highest overall score because it addresses a clear problem, has a broad target audience, fits the team's technical abilities, and can be developed in separate modules. The team also recognized that its wider scope creates an implementation challenge, so the first version will focus on the core features listed below.
 
 ---
 
@@ -217,7 +236,11 @@ Maksab is a digital platform that brings together training, wholesale supplies, 
 | 3 | Wholesale Marketplace | Storefront connecting home-business owners with suppliers of raw materials and packaging at wholesale quantities, with a running cart total. |
 | 4 | Partner Directory | Trusted directory of visual-identity designers, product photographers, and refrigerated shipping/delivery companies. |
 
-### 3.5 Potential Challenges and Opportunities
+### 3.5 MVP Scope
+
+The first version will focus on demonstrating the main value of Maksab. The team will prioritize the pricing calculator, training listings, wholesale product listings with a cart, and the partner directory. Features such as online payments, VIP subscriptions, a mobile application, and advanced analytics can be considered after the MVP.
+
+### 3.6 Potential Challenges and Opportunities
 
 **Challenges:**
 - Collecting accurate, up-to-date data from suppliers and service partners
@@ -229,15 +252,18 @@ Maksab is a digital platform that brings together training, wholesale supplies, 
 - No direct competitor combines training + wholesale + pricing + partner directory in one platform
 - Clear path to future features (VIP tier, advanced reporting, expanded supplier network)
 
-### 3.6 Expected Outcomes
+### 3.7 Expected Outcomes
 
 | Outcome | Target Metric |
 |---|---|
 | Reduce time to find training, suppliers, and services | From several scattered searches to one platform |
 | Improve pricing accuracy for home businesses | Reduce underpriced sales via the pricing calculator |
-| Registered home businesses on the platform | *[Team to set target, e.g. 50+]* |
-| Monthly active users during MVP phase | *[Team to set target, e.g. 300+]* |
-| User satisfaction rating | *[Team to set target, e.g. 4/5 from post-use surveys]* |
+| Validate the usefulness of the platform | Feedback from initial test users |
+| Demonstrate the core user journey | A user can calculate a price, browse resources, review partners, and add wholesale items to a cart |
+
+### 3.8 Final Decision
+
+Based on the evaluation results and team discussion, Maksab was selected as the final MVP concept because it addresses a real problem, has clear target users, matches the team's technical abilities, and can be developed in stages.
 
   ---
 
