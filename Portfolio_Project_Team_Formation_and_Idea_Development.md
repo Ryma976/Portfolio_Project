@@ -140,7 +140,6 @@ The team discussed and researched multiple project directions before evaluating 
 
 | Idea | Feasibility | Potential Impact | Technical Alignment | Scalability | Total |
 |---|---|---|---|---|---|
-
 | Riyadh Neighborhood Guide | 4/5 | 3/5 | 4/5 | 3/5 | 14/20 |
 | PetCare | 4/5 | 2/5 | 4/5 | 3/5 | 13/20 |
 | **Maksab** | 5/5 | 5/5 | 5/5 | 5/5 | **20/20** |
