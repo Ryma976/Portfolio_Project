@@ -27,14 +27,17 @@ The project began with an initial team meeting to introduce members, share backg
 - Ensure everyone understands the scope of the selected idea
 
 ### 1.2 Team Members and Roles
-All team members contribute to full-stack development throughout the project, with a specialized focus area each.
+### 1.2 Team Members & Core Responsibilities
 
-| Team Member | Specialization | Responsibilities |
-|---|---|---|
-| Bayadir Aldossari | Project Manager (PM) | Lead project coordination, task planning, timeline and risk management. |
-| Reem Alanazi | Team Lead / Architecture | Lead technical direction and architecture decisions; support integration across frontend and backend. |
-| Shomokh Aldosari | Frontend Developer | Build UI (HTML/CSS/JS), implement the pricing-calculator interface and wholesale marketplace cart. |
-| Shahad Alharbi | Backend Developer | Design and implement REST APIs (Python), manage server-side logic and database integration. |
+> **Note:** All team members contribute as **Full-Stack Engineers** across the project, while taking ownership of specific specialized domains.
+
+| Team Member | Role & Specialization | Key Responsibilities |
+| :--- | :--- | :--- |
+| **Bayadir Aldossari** | Project Manager & Lead Full-Stack | Oversee project workflow, task allocation, timeline tracking, risk management, and ensure full-stack feature integration. |
+| **Reem Alanazi** | Technical Lead & Architecture | Direct technical architecture, review code standards, guide backend/frontend integration, and supervise overall system design. |
+| **Shomokh Aldosari** | Lead Frontend Engineer | Architect interactive UI components using HTML5, CSS3, and JavaScript; build the pricing calculator interface and wholesale cart logic. |
+| **Shahad Alharbi** | Lead Backend Engineer | Design and implement RESTful APIs using Python (Flask), manage database models/schema, and write server-side business logic. |
+| **[Member Name]** | QA & Documentation Lead | Conduct code quality testing (QA), manage Pull Requests (PRs), maintain technical documentation, and structure the project README. |
 
 ### 1.3 Collaboration Strategies
 
