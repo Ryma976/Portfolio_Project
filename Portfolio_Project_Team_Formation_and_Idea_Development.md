@@ -74,7 +74,7 @@ The project began with an initial team meeting to introduce members, share backg
 ## 2. Research and Ideas Explored
 
 ### 2.1 Research Process
-Before the group discussion, the team members looked at problems faced by people in their communities and at existing online services related to small businesses, training, supplies, pricing, and delivery. This helped the team identify areas where services were spread across different platforms and where a simpler combined solution could be useful.
+Before the group discussion, the team members shared personal experiences and observations related to small businesses, training, supplies, pricing, and delivery. We also looked at existing online services in these areas. This helped the team identify situations where services were spread across different platforms and where a simpler combined solution could be useful.
 
 The team shared the findings and discussed which problems were common, practical to address, and suitable for a project that could be developed within the available time.
 
