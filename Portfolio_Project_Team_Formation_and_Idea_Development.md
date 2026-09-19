@@ -2,7 +2,7 @@
 
 **Project:** Maksab (مَكْسَب)
 **Stage:** 1 – Team Formation and Idea Development
-**Team:** Bayadir Aldossari, Reem Alanazi, Shomokh Aldosari, Shahad Alharbi
+**Team:** Bayadir Aldossari, Reem Alanazi, Shomukh Aldosari, Shahad Alharbi
 **Document Version:** 1.0
 
 ## Contents
@@ -17,13 +17,13 @@ Our team consists of 4 developers with complementary skills in Full-Stack Develo
 
 * **Bayadir Aldossari:**
 * **Reem Alanazi:**
-* **Shomokh Aldosari:**
+* **Shomukh Aldosari:**
 * **Shahad Alharbi:**
 
 * # Stage 1 Report – Team Formation and Idea Development
 
 **Project:** Maksab (مَكْسَب) – Platform for Home-Based & Family-Production Businesses in Saudi Arabia
-**Team:** Bayadir Aldossari, Reem Alanazi, Shomokh Aldosari, Shahad Alharbi
+**Team:** Bayadir Aldossari, Reem Alanazi, Shomukh Aldosari, Shahad Alharbi
 **Stage:** 1 – Team Formation and Idea Development
 
 ---
@@ -47,7 +47,7 @@ The project began with an initial team meeting to introduce members, share backg
 | :--- | :--- | :--- |
 | **Bayadir Aldossari** | Project Manager & Lead Full-Stack | Oversee project workflow, task allocation, timeline tracking, risk management, and ensure full-stack feature integration. |
 | **Reem Alanazi** | Technical Lead & Architecture | Direct technical architecture, review code standards, guide backend/frontend integration, and supervise overall system design. |
-| **Shomokh Aldosari** | Lead Frontend Engineer | Architect interactive UI components using HTML5, CSS3, and JavaScript; build the pricing calculator interface and wholesale cart logic. |
+| **Shomukh Aldosari** | Lead Frontend Engineer | Architect interactive UI components using HTML5, CSS3, and JavaScript; build the pricing calculator interface and wholesale cart logic. |
 | **Shahad Alharbi** | Lead Backend Engineer | Design and implement RESTful APIs using Python (Flask), manage database models/schema, and write server-side business logic. |
 
 ### 1.3 Collaboration Strategies
@@ -270,5 +270,5 @@ Based on the evaluation results and team discussion, Maksab was selected as the 
 ## Authors
 * **Bayadir Aldossari**
 * **Reem Alanazi**
-* **Shomokh Aldosari**
+* **Shomukh Aldosari**
 * **Shahad Alharbi**
