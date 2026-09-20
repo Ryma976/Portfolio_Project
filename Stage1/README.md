@@ -4,7 +4,7 @@
 
 **Project:** Maksab (مَكْسَب) – Platform for Home-Based & Family-Production Businesses in Saudi Arabia
 
-**Team:** Bayadir Aldossari, Reem Alanazi, Shomukh Aldosari, Shahad Alharbi
+**Team:** Reem Alanazi, Bayadir Aldossari, Shomukh Aldosari, Shahad Alharbi
 
 **Document Version:** 1.0
 
@@ -250,7 +250,7 @@ Based on the evaluation results and team discussion, Maksab was selected as the 
   ---
 
 ## Authors
-* **Bayadir Aldossari**
 * **Reem Alanazi**
+* **Bayadir Aldossari**
 * **Shomukh Aldosari**
 * **Shahad Alharbi**

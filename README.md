@@ -25,7 +25,7 @@ business-service partners together in one place.
 
 ## Team
 
-- Bayadir Aldossari
 - Reem Alanazi
+- Bayadir Aldossari
 - Shomukh Aldosari
 - Shahad Alharbi
