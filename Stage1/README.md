@@ -249,6 +249,94 @@ Based on the evaluation results and team discussion, Maksab was selected as the 
 
   ---
 
+## 4. Project Objectives
+
+Maksab aims to provide Saudi home-based and family-production businesses with one reliable platform for the resources
+they need to start, organize, and grow their work.
+
+The team will use the following SMART objectives for the MVP:
+
+1. **Deliver the core platform:** Build and connect the pricing calculator, training listings, wholesale marketplace
+   with cart, and partner directory before the final project presentation.
+2. **Support accurate pricing:** Allow a business owner to enter material, labor, and packaging costs and receive a
+   recommended sale price and profit margin in one user flow.
+3. **Validate usability:** Test the main user journey with initial users and fix the highest-priority usability issues
+   before the MVP submission.
+
+## 5. Stakeholders and Team Roles
+
+| Stakeholder | Interest or Responsibility |
+|---|---|
+| Home-based business owners | Primary users who need pricing support, training, supplies, and trusted services. |
+| Family-production entrepreneurs | Users who want to organize and grow small-scale production. |
+| Trainers and workshop providers | Provide craft and business training listed in the academy. |
+| Suppliers | Provide wholesale raw materials and packaging products. |
+| Service partners | Provide photography, branding, and refrigerated delivery services. |
+| Project team | Designs, develops, tests, documents, and presents the MVP. |
+| Mentors and evaluators | Provide feedback and assess project progress and the final outcome. |
+
+| Team Member | Primary Ownership |
+|---|---|
+| Bayadir Aldossari | Project management, planning, and feature integration |
+| Reem Alanazi | Technical architecture, code standards, and system design |
+| Shomukh Aldosari | Frontend interfaces, pricing calculator, and wholesale cart |
+| Shahad Alharbi | Flask APIs, database models, and backend business logic |
+
+## 6. Project Scope
+
+### 6.1 In Scope for the MVP
+
+- Smart pricing calculator for material, labor, and packaging costs
+- Training academy listings and workshop information
+- Wholesale product listings with a running shopping cart
+- Trusted partner directory for business-support services
+- Responsive web interface and clear navigation between core modules
+- Basic data validation, testing, documentation, and user feedback collection
+
+### 6.2 Out of Scope for the MVP
+
+- Online payments and payment-gateway integration
+- VIP subscriptions or paid membership tiers
+- Native iOS or Android applications
+- Advanced business analytics and reporting
+- Large-scale supplier onboarding and automated inventory synchronization
+- Full logistics, delivery tracking, or marketplace transaction management
+
+## 7. Project Risks and Mitigation
+
+| Risk | Potential Impact | Mitigation |
+|---|---|---|
+| Supplier and partner data is incomplete or outdated | Users may receive inaccurate information. | Start with a small verified dataset, record source details, and review entries regularly. |
+| Four modules make the MVP too broad | Important features may remain unfinished. | Prioritize the core user journey and deliver a simple version of each module first. |
+| Pricing calculations are misunderstood | Users may set unprofitable prices. | Document the calculation clearly, validate inputs, and test examples with potential users. |
+| Limited user feedback before submission | Usability problems may be found too late. | Schedule early walkthroughs and record feedback as actionable issues. |
+| Integration or deployment problems | The final demonstration may be affected. | Use feature branches, integrate regularly, and maintain a tested demo version. |
+
+## 8. High-Level Project Plan
+
+| Phase | Main Activities | Deliverable |
+|---|---|---|
+| Stage 1: Discovery and Definition | Form the team, research the problem, compare ideas, and define the MVP, scope, risks, and objectives. | Stage 1 report |
+| Stage 2: Design and Architecture | Create wireframes, define data models and API routes, and agree on technical architecture. | Designs and technical plan |
+| Stage 3: Core Development | Implement the backend, frontend, calculator, academy, marketplace, cart, and partner directory. | Functional MVP |
+| Stage 4: Integration and Testing | Connect modules, test user flows, fix defects, and improve validation and usability. | Tested release candidate |
+| Stage 5: Presentation and Documentation | Prepare the demo, document the solution, and present the project's outcomes and learning. | Final presentation and documentation |
+
+## 9. Team Learning Progress
+
+The team is applying and extending its full-stack development skills through the project. Current learning priorities
+include:
+
+- Translating user research into a focused MVP and measurable objectives
+- Designing a maintainable Flask backend with RESTful APIs and database models
+- Building accessible, responsive frontend components with HTML, CSS, and JavaScript
+- Connecting frontend workflows to backend services and validating user input
+- Using Git branches, pull requests, reviews, and project documentation as a team
+- Testing realistic user journeys and applying feedback to improve the product
+
+The team will review learning progress during weekly meetings by discussing completed work, new technical skills,
+blockers, and the next learning goals.
+
 ## Authors
 * **Bayadir Aldossari**
 * **Reem Alanazi**
