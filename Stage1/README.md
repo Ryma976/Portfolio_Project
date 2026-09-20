@@ -1,4 +1,4 @@
-﻿# Stage 1 Report: Team Formation and Idea Development
+# Stage 1 Report: Team Formation and Idea Development
 
 **Portfolio Project – Holberton Saudi Arabia**
 
@@ -35,8 +35,8 @@ The project began with an initial team meeting to introduce members, share backg
 ### 1.3 Collaboration Strategies
 
 **Communication Platforms:**
-- Discord â€“ primary channel for team discussions, daily updates, and quick decisions
-- WhatsApp â€“ for urgent and informal communication
+- Discord – primary channel for team discussions, daily updates, and quick decisions
+- WhatsApp – for urgent and informal communication
 
 **Team Communication Rules:**
 - Respond to messages within 24 hours
@@ -96,7 +96,7 @@ Based on these challenges, we developed the idea of Maksab: a platform that brin
 
 | Strengths | Weaknesses |
 |---|---|
-| Clear, well-scoped concept with an existing design and UI already drafted. | Concept is repetitive â€” similar neighborhood/city-guide platforms already exist. |
+| Clear, well-scoped concept with an existing design and UI already drafted. | Concept is repetitive — similar neighborhood/city-guide platforms already exist. |
 | Straightforward technical build using a Flask + Facade architecture similar to prior coursework. | Limited originality reduces differentiation in evaluation. |
 | Useful for tourists during high-traffic periods (e.g., Riyadh Season). | Value is seasonal/tourism-dependent rather than solving an everyday problem. |
 
@@ -115,12 +115,12 @@ Based on these challenges, we developed the idea of Maksab: a platform that brin
 
 | Strengths | Weaknesses |
 |---|---|
-| Detailed presentation and UI mockups already prepared. | Audience is narrow â€” only reaches pet-owning households. |
+| Detailed presentation and UI mockups already prepared. | Audience is narrow — only reaches pet-owning households. |
 | Clear, well-defined feature set. | Does not serve all members of the community. |
 | Friendly, approachable product concept. | Lower overall social/economic impact compared to alternatives. |
 
-**Reason for Rejection:** The idea does not serve all members of the community â€” its audience is narrower than the broad, high-impact MVP the team wanted to build.
-#### Idea 3: NextCairn â€“ Curriculum Analytics & Continuous Improvement Platform
+**Reason for Rejection:** The idea does not serve all members of the community — its audience is narrower than the broad, high-impact MVP the team wanted to build.
+#### Idea 3: NextCairn – Curriculum Analytics & Continuous Improvement Platform
 
 **Idea Owner:** Team
 
@@ -145,7 +145,7 @@ Based on these challenges, we developed the idea of Maksab: a platform that brin
 **Reason for Rejection:** Although it provides strong educational analytics, the team chose to focus on a solution with broader economic impact for local micro-entrepreneurs (**Maksab**).
 
 ---
-#### Idea 4: Maksab â€“ Platform for Home-Based & Family-Production Businesses âœ… Selected
+#### Idea 4: Maksab – Platform for Home-Based & Family-Production Businesses ✅ Selected
 **Idea Owner:** Team
 
 **Overview:** A unified digital platform empowering Saudi home-based and family-production businesses to move from hobby to sustainable enterprise.
@@ -154,7 +154,7 @@ Based on these challenges, we developed the idea of Maksab: a platform that brin
 
 **Target Audience:** Home-based business owners and family-production entrepreneurs, craft and food producers, and the freelance service providers (photographers, designers, shipping companies) who support them.
 
-**Key Features:** A training academy (craft and business workshops), a wholesale resource marketplace, a smart pricing calculator (material cost + labor + packaging â†’ recommended sale price and margin), and a directory of trusted service partners.
+**Key Features:** A training academy (craft and business workshops), a wholesale resource marketplace, a smart pricing calculator (material cost + labor + packaging → recommended sale price and margin), and a directory of trusted service partners.
 
 | Strengths | Weaknesses |
 |---|---|
@@ -163,7 +163,7 @@ Based on these challenges, we developed the idea of Maksab: a platform that brin
 | Broad, inclusive target audience across many craft and food categories. | Wider feature set (four core modules) increases MVP scope to manage carefully. |
 | Aligns with national interest in supporting small and home-based enterprises. | |
 
-**Reason for Selection:** Highest evaluation score â€” realistic, solves a real problem from the team's own context, and serves a broad, underserved segment (unlike PetCare) with an original angle (unlike the Riyadh guide).
+**Reason for Selection:** Highest evaluation score — realistic, solves a real problem from the team's own context, and serves a broad, underserved segment (unlike PetCare) with an original angle (unlike the Riyadh guide).
 
 ### 2.4 Evaluation Criteria and Summary
 
@@ -188,14 +188,14 @@ Maksab received the highest overall score because it addresses a clear problem, 
 ## 3. Selected MVP Concept
 
 ### 3.1 MVP Summary
-Maksab is a digital platform that brings together training, wholesale supplies, a smart pricing tool, and a trusted partner directory in one place â€” helping Saudi home-based and family-production businesses operate sustainably and price their products correctly.
+Maksab is a digital platform that brings together training, wholesale supplies, a smart pricing tool, and a trusted partner directory in one place — helping Saudi home-based and family-production businesses operate sustainably and price their products correctly.
 
 ### 3.2 Reasons for Selection
 
 | Criteria | Justification |
 |---|---|
 | Feasibility | Can be built with a Flask/Python backend and HTML/CSS/JS frontend within the project timeline, following a Facade-pattern architecture similar to the team's HBnB project. |
-| Innovation | Combines training, wholesale sourcing, pricing, and a partner directory in one platform â€” existing options address only fragments of this need. |
+| Innovation | Combines training, wholesale sourcing, pricing, and a partner directory in one platform — existing options address only fragments of this need. |
 | Alignment with Goals | Matches the team's web development and backend skills, and reflects a problem the team recognizes from its own context. |
 | Market Need | Directly addresses the operational and pricing struggles of home-based businesses, a large and growing segment in Saudi Arabia. |
 | Scalability | Additional features (VIP subscriptions, expanded partner network, advanced analytics) can be layered on after the MVP. |
