@@ -215,3 +215,23 @@ Compare Products & Prices
 Calculate Production Cost
      ↓
 Set Selling Price
+```
+# 8. Business Model
+
+Maksab will generate revenue by connecting home-based businesses with
+wholesale suppliers.
+
+### Revenue Sources
+
+- **Supplier Commission:** Maksab will receive a commission from
+  suppliers for successful purchases made through the platform.
+
+- **Premium Services:** In the future, business owners may pay for
+  additional features and advanced tools.
+
+- **Supplier Promotion:** Suppliers may pay for additional visibility
+  and promotional placement on the platform.
+
+The main revenue model for the MVP will be based on supplier
+commissions, while premium services and supplier promotion can be
+introduced in future versions.
