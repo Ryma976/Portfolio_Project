@@ -185,3 +185,33 @@ MVP Development
        ↓
 Stage 5
 Project Closure
+```
+# 7. Maksab's Unique Value
+
+Maksab connects home-based businesses with wholesale suppliers in one
+platform. Instead of selling products directly to customers, Maksab
+helps entrepreneurs find the materials and supplies they need to
+produce their products.
+
+The platform helps users:
+
+- Identify the materials and supplies needed for their products.
+- Discover suitable wholesale suppliers.
+- Compare available products and prices.
+- Calculate the total production cost.
+- Estimate a suitable selling price and profit margin.
+
+### Core Workflow
+
+```text
+Product Idea
+     ↓
+Required Materials
+     ↓
+Find Suitable Suppliers
+     ↓
+Compare Products & Prices
+     ↓
+Calculate Production Cost
+     ↓
+Set Selling Price
