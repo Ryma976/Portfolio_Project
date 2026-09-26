@@ -26,14 +26,19 @@ services that support their business growth.
 
 ## Objectives
 
-- **Smart Pricing:** Help entrepreneurs calculate production costs and
-  determine suitable selling prices and profit margins.
+- **Smart Pricing:** By the final project presentation, deliver a pricing
+  calculator that accepts material, packaging, and labor costs and displays
+  the total production cost, suggested selling price, and profit margin. Verify
+  its calculations using documented test cases.
 
-- **Wholesale Sourcing:** Connect home-based businesses with raw-material
-  and packaging suppliers and help them find suitable wholesale options.
+- **Wholesale Sourcing:** By the final project presentation, provide a
+  searchable and filterable catalog of wholesale raw materials and packaging,
+  with a cart that displays the selected items and an estimated total. Verify
+  this flow with documented test cases.
 
-- **Business Support:** Provide access to relevant training and
-  professional services that support business development.
+- **Business Support:** By the final project presentation, provide training
+  and service-provider listings with the information users need to identify
+  relevant workshops and business-support services.
 
 ---
 
@@ -41,17 +46,17 @@ services that support their business growth.
 
 ## Stakeholders
 
-| Stakeholder | Role |
-|---|---|
-| Bayadir Aldossari | Project Manager & Full-Stack Lead |
-| Reem Alanazi | Technical & Architecture Lead |
-| Shomukh Aldosari | Lead Frontend Engineer |
-| Shahad Alharbi | Lead Backend Engineer |
-| Project Instructor / Tutor | Guidance, feedback, and evaluation |
-| Home-Based Businesses | Primary target users |
-| Suppliers | Provide raw materials and packaging products |
-| Training Providers | Provide relevant workshops |
-| Service Providers | Provide business-support services |
+| Stakeholder | Type | Role |
+|---|---|---|
+| Bayadir Aldossari | Internal | Project Manager & Full-Stack Lead |
+| Reem Alanazi | Internal | Technical & Architecture Lead |
+| Shomukh Aldosari | Internal | Lead Frontend Engineer |
+| Shahad Alharbi | Internal | Lead Backend Engineer |
+| Project Instructor / Tutor | Internal | Guidance, feedback, and evaluation |
+| Home-Based Businesses | External | Primary target users |
+| Suppliers | External | Provide raw materials and packaging products |
+| Training Providers | External | Provide relevant workshops |
+| Service Providers | External | Provide business-support services |
 
 ## Team Responsibilities
 
@@ -223,8 +228,9 @@ wholesale suppliers.
 
 ### Revenue Sources
 
-- **Supplier Commission:** Maksab will receive a commission from
-  suppliers for successful purchases made through the platform.
+- **Supplier Commission (After the MVP):** Maksab may receive a commission
+  from suppliers for successful purchases after the MVP, when a purchase and
+  payment process is available. Supplier commissions are not part of the MVP.
 
 - **Premium Services:** In the future, business owners may pay for
   additional features and advanced tools.
@@ -232,6 +238,6 @@ wholesale suppliers.
 - **Supplier Promotion:** Suppliers may pay for additional visibility
   and promotional placement on the platform.
 
-The main revenue model for the MVP will be based on supplier
-commissions, while premium services and supplier promotion can be
-introduced in future versions.
+The MVP will not generate revenue through supplier commissions because online
+payments are out of scope. Supplier commissions, premium services, and supplier
+promotion may be considered after the MVP.
