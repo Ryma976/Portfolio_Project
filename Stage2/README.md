@@ -121,17 +121,17 @@ The MVP will include four main modules:
 - Refrigerated delivery providers.
 - Contact information for service providers.
 
-## 3.2 Technical Scope
 
-- Responsive web application.
-- HTML5.
-- CSS3.
-- JavaScript.
-- Python.
-- Flask.
-- Facade design pattern.
-- Relational database.
-- Frontend and backend integration.
+
+### 3.2 Technical Scope
+
+* **Frontend Architecture:** Modern, component-based Single-Page Application (SPA) built using **React.js** (HTML5, CSS3/Tailwind CSS, ES6+ JavaScript), integrated with **Axios** for asynchronous HTTP request handling.
+* **Backend Architecture:** RESTful API services built using **Python / Flask**, enforcing the **Facade Structural Design Pattern** to streamline communication between client requests and underlying core modules.
+* **Database Management System (DBMS):** Relational database powered by **PostgreSQL**, with object-relational mapping handled via **SQLAlchemy ORM** for data structure management, integrity, and scalability.
+* **External API Integrations:** 
+  * **Payment Processing:** Live payment gateway integration using **Moyasar / Tap API**.
+  * **Location & Geolocation Services:** Integrated **Google Maps Platform API** (Geocoding & Distance Matrix) for seller/supplier mapping and dynamic delivery cost calculation.
+* **Integration Strategy:** Complete decoupling of Frontend (React) and Backend (Flask) communicating exclusively through secure, JSON-formatted RESTful API contracts.
 
 ---
 
