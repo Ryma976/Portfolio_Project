@@ -85,24 +85,30 @@ services that support their business growth.
 
 ## 3.1 In-Scope
 
-The MVP will include four main modules:
+The MVP will focus on the **Mediator Platform Model** connecting home-based businesses with wholesale suppliers, and will include four core modules:
 
-### 🧮 Smart Pricing Calculator
+### 🧮 1. Smart Pricing Calculator
+* Material cost input.
+* Packaging cost input.
+* Labor/time cost input.
+* Automated production cost calculation.
+* Suggested selling price & profit margin calculation.
 
-- Material cost input.
-- Packaging cost input.
-- Labor/time cost input.
-- Production cost calculation.
-- Suggested selling price.
-- Profit margin calculation.
+### 📦 2. Wholesale Marketplace
+* Raw-material and packaging supplier listings.
+* Wholesale product catalog with search and filtering.
+* Interactive shopping cart & total order cost estimation.
+* Direct messaging/inquiry channel between home businesses and suppliers.
 
-### 📦 Wholesale Marketplace
+### 💳 3. Live Payment Integration
+* Direct online payment gateway integration (**Moyasar / Tap API**).
+* Secure transaction processing for wholesale orders.
+* Digital order receipts and transaction history.
 
-- Raw-material and packaging suppliers.
-- Wholesale product catalog.
-- Product search and filtering.
-- Shopping cart.
-- Estimated total cost.
+### 📍 4. Location & Maps Services
+* Integrated **Google Maps API** for precise location selection in Riyadh.
+* Location-based supplier discovery.
+* Dynamic estimated delivery cost calculation based on distance.
 
 
 
@@ -122,16 +128,16 @@ The MVP will include four main modules:
 
 # 4. Out-of-Scope
 
-The following features are excluded from the current MVP:
+The following features and services are explicitly excluded from the current MVP scope:
 
-- Direct online payment processing.
-- Real-time order tracking.
-- Live logistics and GPS integrations.
-- Advanced financial and sales analytics.
-- VIP or paid subscription tiers.
-- Native iOS and Android applications.
+* 🎓 **Training Academy & Workshops:** Craft and business educational workshops or learning resources.
+* 🤝 **Partner Directory:** Directory listings for third-party service providers (e.g., product photographers, branding designers, and specialized refrigerated logistics).
+* 📱 **Native Mobile Applications:** Dedicated native iOS and Android mobile applications (the MVP will be strictly a responsive web application).
+* 🚚 **Real-time Live GPS Tracking:** Dynamic, real-time driver/courier GPS tracking.
+* 📊 **Advanced Predictive Analytics:** AI-based financial analytics, sales forecasting, or complex demand reporting.
+* 🔄 **Automated ERP & Inventory Sync:** Direct automated inventory synchronization with suppliers' internal ERP systems.
 
-These features may be considered for future releases.
+*Note: The current MVP strictly focuses on establishing the core Mediator Platform model, the Smart Pricing Calculator, live payment gateway processing, and location/maps integration. The excluded features may be evaluated for future system releases.*
 
 ---
 
