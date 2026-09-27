@@ -141,18 +141,20 @@ The MVP will focus on the **Mediator Platform Model** connecting home-based busi
 
 ---
 
-# 4. Out-of-Scope
+## 4. Out-of-Scope
 
-The following features and services are explicitly excluded from the current MVP scope:
+> ⚠️ **Scope Boundary:** The following features and services are explicitly excluded from the current MVP version and planned for future releases.
 
-* 🎓 **Training Academy & Workshops:** Craft and business educational workshops or learning resources.
-* 🤝 **Partner Directory:** Directory listings for third-party service providers (e.g., product photographers, branding designers, and specialized refrigerated logistics).
-* 📱 **Native Mobile Applications:** Dedicated native iOS and Android mobile applications (the MVP will be strictly a responsive web application).
-* 🚚 **Real-time Live GPS Tracking:** Dynamic, real-time driver/courier GPS tracking.
-* 📊 **Advanced Predictive Analytics:** AI-based financial analytics, sales forecasting, or complex demand reporting.
-* 🔄 **Automated ERP & Inventory Sync:** Direct automated inventory synchronization with suppliers' internal ERP systems.
+| Excluded Feature / Service | Description |
+| :--- | :--- |
+| 🎓 **Training Academy & Workshops** | Educational workshops, skill-building content, and learning resources. |
+| 🤝 **Partner Directory** | Directory for third-party providers (photographers, designers, refrigerated transport). |
+| 📱 **Native Mobile Applications** | Dedicated iOS & Android native apps (MVP is strictly a Responsive Web App). |
+| 🚚 **Real-Time GPS Tracking** | Dynamic driver tracking on live maps. |
+| 📊 **Advanced AI Analytics** | AI-based financial analytics, sales forecasting, or complex demand reporting. |
+| 🔄 **Automated ERP Sync** | Direct automated inventory synchronization with suppliers' internal ERPs. |
 
-*Note: The current MVP strictly focuses on establishing the core Mediator Platform model, the Smart Pricing Calculator, live payment gateway processing, and location/maps integration. The excluded features may be evaluated for future system releases.*
+> 📌 **Note:** The current MVP strictly focuses on establishing the core **Mediator Platform model**, **Smart Pricing Calculator**, **Live Payment Integration**, and **Google Maps Services**.
 
 ---
 
