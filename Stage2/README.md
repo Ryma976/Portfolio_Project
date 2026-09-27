@@ -119,13 +119,25 @@ The MVP will focus on the **Mediator Platform Model** connecting home-based busi
 
 ### 3.2 Technical Scope
 
-* **Frontend Architecture:** Modern, component-based Single-Page Application (SPA) built using **React.js** (HTML5, CSS3/Tailwind CSS, ES6+ JavaScript), integrated with **Axios** for asynchronous HTTP request handling.
-* **Backend Architecture:** RESTful API services built using **Python / Flask**, enforcing the **Facade Structural Design Pattern** to streamline communication between client requests and underlying core modules.
-* **Database Management System (DBMS):** Relational database powered by **PostgreSQL**, with object-relational mapping handled via **SQLAlchemy ORM** for data structure management, integrity, and scalability.
-* **External API Integrations:** 
-  * **Payment Processing:** Live payment gateway integration using **Moyasar / Tap API**.
-  * **Location & Geolocation Services:** Integrated **Google Maps Platform API** (Geocoding & Distance Matrix) for seller/supplier mapping and dynamic delivery cost calculation.
-* **Integration Strategy:** Complete decoupling of Frontend (React) and Backend (Flask) communicating exclusively through secure, JSON-formatted RESTful API contracts.
+> 💡 **Architecture Overview:** Decoupled Full-Stack Architecture communicating via secure JSON RESTful APIs.
+
+| Component | Technology / Stack | Details & Responsibility |
+| :--- | :--- | :--- |
+| **🎨 Frontend** | **React.js** | Single-Page Application (SPA), Component-based UI (HTML5, CSS3/Tailwind, ES6+ JS) with Axios for API requests. |
+| **⚙️ Backend** | **Python / Flask** | Lightweight RESTful API Microservices enforcing the **Facade Structural Pattern**. |
+| **🗄️ Database** | **PostgreSQL** | Relational Database managed seamlessly via **SQLAlchemy ORM**. |
+| **💳 Payments** | **Moyasar / Tap API** | Live payment gateway integration for secure wholesale order processing. |
+| **📍 Logistics** | **Google Maps API** | Location selection, geolocation, and dynamic delivery cost calculations. |
+
+---
+
+#### 🔌 External Integrations & APIs
+
+| API Service | Integration Purpose |
+| :--- | :--- |
+| **Payment Gateway** | Live transaction processing using **Moyasar / Tap API**. |
+| **Maps & Geolocation** | Location picking & dynamic delivery pricing using **Google Maps API**. |
+| **API Contract** | Fully decoupled **React (Client) ↔ Flask (Server)** communication via JSON REST APIs. |
 
 ---
 
