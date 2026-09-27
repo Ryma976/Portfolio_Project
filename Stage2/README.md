@@ -54,30 +54,33 @@ services that support their business growth.
 | Home-Based Businesses | External | Primary target users |
 | Suppliers | External | Provide raw materials and packaging products |
 
-## Team Responsibilities
+### 👥 Team Responsibilities
 
-### Bayadir Aldossari
-- Project coordination and planning.
-- Task and progress tracking.
-- Team communication and scheduling.
+> **Note:** All team members actively contribute to **Full-Stack Development** (React.js Frontend & Flask/PostgreSQL Backend) across the platform, alongside their core leadership focus below:
 
-### Reem Alanazi
-- Technical direction.
-- Software architecture.
-- Frontend and backend integration.
-- Technical decision-making.
+#### Bayadir Aldossari
+* Project coordination and planning.
+* Task and progress tracking.
+* Team communication and scheduling.
+* Full-stack feature integration.
 
-### Shomukh Aldosari
-- Frontend development.
-- User interface implementation.
-- Responsive web design.
-- Frontend functionality.
+#### Reem Alanazi
+* Technical direction.
+* Software architecture.
+* Frontend and backend integration.
+* Technical decision-making.
 
-### Shahad Alharbi
-- Backend development.
-- REST API implementation.
-- Database integration.
-- Server-side business logic.
+#### Shomukh Aldosari
+* Frontend user interface implementation.
+* Responsive web design and styling.
+* Frontend functionality and state management.
+* Full-stack API integration.
+
+#### Shahad Alharbi
+* Backend REST API implementation.
+* PostgreSQL database integration and ORM modeling.
+* Server-side business logic and external integrations.
+* Full-stack component testing.
 
 ---
 
