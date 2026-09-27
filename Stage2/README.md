@@ -36,9 +36,7 @@ services that support their business growth.
   with a cart that displays the selected items and an estimated total. Verify
   this flow with documented test cases.
 
-- **Business Support:** By the final project presentation, provide training
-  and service-provider listings with the information users need to identify
-  relevant workshops and business-support services.
+
 
 ---
 
@@ -55,8 +53,6 @@ services that support their business growth.
 | Project Instructor / Tutor | Internal | Guidance, feedback, and evaluation |
 | Home-Based Businesses | External | Primary target users |
 | Suppliers | External | Provide raw materials and packaging products |
-| Training Providers | External | Provide relevant workshops |
-| Service Providers | External | Provide business-support services |
 
 ## Team Responsibilities
 
@@ -108,18 +104,7 @@ The MVP will include four main modules:
 - Shopping cart.
 - Estimated total cost.
 
-### 🎓 Training Academy
 
-- Craft and business workshops.
-- Workshop details.
-- Basic registration interest form.
-
-### 🤝 Partner Directory
-
-- Product photographers.
-- Branding and visual-identity designers.
-- Refrigerated delivery providers.
-- Contact information for service providers.
 
 
 
