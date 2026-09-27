@@ -127,6 +127,7 @@ The MVP will include four main modules:
 - HTML5.
 - CSS3.
 - JavaScript.
+- React.
 - Python.
 - Flask.
 - Facade design pattern.
