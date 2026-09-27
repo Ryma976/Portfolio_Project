@@ -26,19 +26,18 @@ services that support their business growth.
 
 ## Objectives
 
-- **Smart Pricing:** By the final project presentation, deliver a pricing
-  calculator that accepts material, packaging, and labor costs and displays
-  the total production cost, suggested selling price, and profit margin. Verify
-  its calculations using documented test cases.
+- **Smart Pricing:** By the end of Stage 4 (MVP Development), users can enter
+  material, packaging, and labor costs and correctly receive the production
+  cost, a suggested selling price, and the profit margin.
 
-- **Wholesale Sourcing:** By the final project presentation, provide a
-  searchable and filterable catalog of wholesale raw materials and packaging,
-  with a cart that displays the selected items and an estimated total. Verify
-  this flow with documented test cases.
+- **Wholesale Sourcing:** By the end of Stage 4 (MVP Development), users can
+  browse supplier products, search and filter them, add items to a cart,
+  complete a payment through a payment gateway in test mode, and view supplier
+  and productive-family locations on a map.
 
-- **Business Support:** By the final project presentation, provide training
-  and service-provider listings with the information users need to identify
-  relevant workshops and business-support services.
+- **Business Support:** By the end of Stage 4 (MVP Development), users can
+  browse craft and business workshops, view workshop details, submit an
+  interest form, and browse a partner directory with contact information.
 
 ---
 
@@ -48,15 +47,11 @@ services that support their business growth.
 
 | Stakeholder | Type | Role |
 |---|---|---|
-| Bayadir Aldossari | Internal | Project Manager & Full-Stack Lead |
-| Reem Alanazi | Internal | Technical & Architecture Lead |
-| Shomukh Aldosari | Internal | Lead Frontend Engineer |
-| Shahad Alharbi | Internal | Lead Backend Engineer |
-| Project Instructor / Tutor | Internal | Guidance, feedback, and evaluation |
+| Project Team (4 members) | Internal | Project roles and responsibilities |
+| Instructor / Tutor | Internal | Guidance and evaluation |
 | Home-Based Businesses | External | Primary target users |
 | Suppliers | External | Provide raw materials and packaging products |
-| Training Providers | External | Provide relevant workshops |
-| Service Providers | External | Provide business-support services |
+| Training / Service Providers | External | Provide workshops and business-support services |
 
 ## Team Responsibilities
 
@@ -107,6 +102,8 @@ The MVP will include four main modules:
 - Product search and filtering.
 - Shopping cart.
 - Estimated total cost.
+- Payment gateway integration in test mode (e.g., Tap or Moyasar).
+- Map view of supplier and productive-family locations using a Maps API.
 
 ### 🎓 Training Academy
 
@@ -124,14 +121,14 @@ The MVP will include four main modules:
 ## 3.2 Technical Scope
 
 - Responsive web application.
-- HTML5.
-- CSS3.
-- JavaScript.
-- React.
+- React.js.
 - Python.
 - Flask.
 - Facade design pattern.
-- Relational database.
+- Relational database (PostgreSQL or MySQL).
+- SQLAlchemy ORM.
+- Payment gateway integration in test mode.
+- Google Maps API.
 - Frontend and backend integration.
 
 ---
@@ -140,9 +137,8 @@ The MVP will include four main modules:
 
 The following features are excluded from the current MVP:
 
-- Direct online payment processing.
-- Real-time order tracking.
-- Live logistics and GPS integrations.
+- Live (real-money) payment processing.
+- Live logistics and real-time GPS tracking.
 - Advanced financial and sales analytics.
 - VIP or paid subscription tiers.
 - Native iOS and Android applications.
