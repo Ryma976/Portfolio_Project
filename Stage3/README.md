@@ -16,50 +16,13 @@
 
 Based on the MVP scope established in Stage 2 for **Maksab (مَكْسَب)**, the following user stories define the core interactions, requirements, and functional expectations. Prioritization follows the **MoSCoW** methodology to guarantee the delivery of high-value features first.
 
-### 🎯 Prioritized User Stories
 
-| Priority | ID | User Story | Acceptance Criteria |
-| --- | --- | --- | --- |
-| **Must Have** | `US-01` | **As a** Home-Based Business Owner, **I want to** enter raw material costs, packaging costs, and labor time into a calculator, **so that** I can determine the exact production cost, suggested retail price, and profit margin. | • Accepts positive numeric inputs for materials, packaging, labor hours, and hourly rate.<br>• Instantly calculates total production cost, suggested selling price (with customizable profit margin %), and net profit.<br>• Displays validation errors for negative or non-numeric inputs. |
-| **Must Have** | `US-02` | **As a** Home-Based Business Owner, **I want to** browse and filter a wholesale catalog of raw materials and packaging, **so that** I can source supplies in bulk at competitive prices. | • Filters products by category, price range, and minimum order quantity (MOQ).<br>• Displays transparent unit prices and supplier ratings.<br>• Allows adding items directly to the wholesale shopping cart. |
-| **Must Have** | `US-03` | **As a** Buyer, **I want to** complete order payments securely via Tap / Moyasar payment gateways, **so that** my transactions are processed safely. | • Supports credit cards, Mada, and Apple Pay.<br>• Generates an instant digital invoice upon success.<br>• Updates order status to "Paid" in the database immediately. |
-| **Should Have** | `US-04` | **As a** Buyer, **I want to** select my precise delivery address using Google Maps integration, **so that** shipping costs are dynamically calculated based on distance. | • Interactive map picker for precise pin location.<br>• Auto-fills street, city, and postal details.<br>• Calculates shipping fees before order confirmation. |
-| **Could Have** | `US-05` | **As a** Seller / Business Owner, **I want to** export my product cost calculation summaries as PDF files, **so that** I can keep offline records for budgeting. | • One-click "Export to PDF" button on the pricing result screen.<br>• Downloaded PDF includes full cost breakdown and time stamps. |
-| **Won't Have** | `US-06` | **As a** Platform Admin, **I want to** view AI-powered sales prediction analytics. | • Out of scope for current MVP (Deferred to future releases). |
 
-<br>• Instantly calculates total production cost, suggested selling price (with customizable profit margin %), and net profit.<br>
 
-<br>• Displays validation errors for negative or non-numeric inputs. |
-| **Must Have** | `US-02` | **As a** Home-Based Business Owner, **I want to** browse and filter a wholesale catalog of raw materials and packaging, **so that** I can source supplies directly from Saudi suppliers. | • Allows filtering by category (e.g., Raw Materials, Packaging, Containers).<br>
-
-<br>• Supports keyword search across product titles.<br>
-
-<br>• Displays minimum order quantity (MOQ), unit price in SAR, and supplier details. |
-| **Must Have** | `US-03` | **As a** Home-Based Business Owner, **I want to** add wholesale items to an interactive shopping cart and review my order summary, **so that** I can calculate my total sourcing costs before checking out. | • Cart calculates line items and total order cost dynamically in SAR.<br>
-
-<br>• Supports updating item quantities and removing items.<br>
-
-<br>• Updates total price in real time without requiring full page reloads. |
-| **Must Have** | `US-04` | **As a** Home-Based Business Owner, **I want to** select my delivery location in Riyadh on an interactive map during checkout, **so that** my shipping costs are calculated based on my exact distance from the supplier. | • Integrates Google Maps API for interactive pin placement.<br>
-
-<br>• Stores latitude, longitude, and formatted street address.<br>
-
-<br>• Dynamically calculates shipping fee using distance matrix logic. |
-| **Must Have** | `US-05` | **As a** Home-Based Business Owner, **I want to** pay for my wholesale order online using Mada or Credit Card, **so that** my purchase is secured and confirmed immediately. | • Integrates Moyasar / Tap Payment API gateway.<br>
-
-<br>• Generates an order receipt upon successful payment.<br>
-
-<br>• Updates order status in the backend (`pending_payment` -> `paid`). |
-| **Should Have** | `US-06` | **As a** Home-Based Business Owner, **I want to** send direct inquiry messages to suppliers regarding wholesale products, **so that** I can negotiate bulk customizations. | • In-app messaging/inquiry modal on product detail pages.<br>
-
-<br>• Stores inquiry records linked to both user and supplier IDs in the database. |
-| **Should Have** | `US-07` | **As a** Registered User, **I want to** save my product pricing recipes to my account, **so that** I can reload, edit, or track my recipe costs over time. | • Saves pricing configurations linked to the authenticated user's ID.<br>
-
-<br>• Allows listing and retrieving saved pricing recipes via user dashboard. |
-| **Could Have** | `US-08` | **As a** Home-Based Business Owner, **I want to** sort suppliers by proximity to my selected location, **so that** I can minimize shipping time and delivery fees. | • Uses distance calculations from Google Maps API to rank local suppliers in Riyadh. |
-| **Won't Have (MVP)** | `US-09` | **As a** Home Business Owner, **I want to** track my delivery driver in real time on a live GPS map, **so that** I know the exact arrival minute. | • Deferred to v2 release post-MVP launch. |
 
 ---
+
+
 
 ## 🏛️ 1. System Architecture
 
