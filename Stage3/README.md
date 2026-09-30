@@ -142,7 +142,56 @@ Maksab follows a **Decoupled Full-Stack Web Architecture**. The frontend is buil
                                              +-----------------------------------+
 
 ```
+erDiagram
 
+    USER ||--o| BUSINESS : owns
+    BUSINESS ||--o{ BUSINESS_NEED : has
+    BUSINESS_NEED }o--o{ MATERIAL : requires
+    SUPPLIER ||--o{ MATERIAL : provides
+    BUSINESS ||--o{ ORDER : creates
+    SUPPLIER ||--o{ ORDER : receives
+
+    USER {
+        int id PK
+        string name
+        string email
+        string password
+    }
+
+    BUSINESS {
+        int id PK
+        int user_id FK
+        string business_name
+        string category
+    }
+
+    BUSINESS_NEED {
+        int id PK
+        int business_id FK
+        string description
+    }
+
+    MATERIAL {
+        int id PK
+        string name
+        decimal price
+        string unit
+    }
+
+    SUPPLIER {
+        int id PK
+        string name
+        string location
+        string contact
+    }
+
+    ORDER {
+        int id PK
+        int business_id FK
+        int supplier_id FK
+        decimal total_amount
+        string status
+    }
 ---
 
 ## 🔄 3. Sequence Diagram
