@@ -1,5 +1,5 @@
 ## 🏗️ System Architecture
-
+## The React.js frontend communicates with the Flask backend through REST APIs. The backend handles the business logic and communicates with PostgreSQL for data management. It also integrates with external services such as Moyasar/Tap for payments and Google Maps for location-based features.
 ```mermaid
 flowchart TB
 
