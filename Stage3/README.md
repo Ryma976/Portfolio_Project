@@ -142,6 +142,7 @@ Maksab follows a **Decoupled Full-Stack Web Architecture**. The frontend is buil
                                              +-----------------------------------+
 
 ```
+```mermaid
 erDiagram
 
     USER ||--o| BUSINESS : owns
@@ -192,6 +193,7 @@ erDiagram
         decimal total_amount
         string status
     }
+```
 ---
 
 ## 🔄 3. Sequence Diagram
