@@ -150,54 +150,115 @@ Maksab follows a **Decoupled Full-Stack Web Architecture**. The frontend is buil
 ```mermaid
 erDiagram
 
-    USER ||--o| BUSINESS : owns
-    BUSINESS ||--o{ BUSINESS_NEED : has
-    BUSINESS_NEED }o--o{ MATERIAL : requires
-    SUPPLIER ||--o{ MATERIAL : provides
-    BUSINESS ||--o{ ORDER : creates
-    SUPPLIER ||--o{ ORDER : receives
+erDiagram
+    USERS ||--o| SUPPLIER_PROFILES : has
+    USERS ||--o{ PRODUCTS : supplies
+    USERS ||--o{ PRICING_RECIPES : saves
+    USERS ||--o{ ORDERS : places
+    USERS ||--o{ ORDERS : fulfils
+    USERS ||--o{ MESSAGES : sends
+    USERS ||--o{ MESSAGES : receives
+    PRODUCTS ||--o{ ORDER_ITEMS : appears
+    PRODUCTS ||--o{ MESSAGES : concerns
+    ORDERS ||--|{ ORDER_ITEMS : contains
+    ORDERS ||--o{ PAYMENTS : settled
 
-    USER {
-        int id PK
-        string name
-        string email
-        string password
+    USERS {
+        uuid id PK
+        varchar full_name
+        varchar email UK
+        varchar password_hash
+        varchar role
+        timestamptz created_at
     }
 
-    BUSINESS {
-        int id PK
-        int user_id FK
-        string business_name
-        string category
+    SUPPLIER_PROFILES {
+        uuid user_id PK, FK
+        varchar business_name
+        text address
+        varchar city
+        decimal_10_8 latitude
+        decimal_11_8 longitude
+        boolean is_verified
     }
 
-    BUSINESS_NEED {
-        int id PK
-        int business_id FK
-        string description
+    PRODUCTS {
+        uuid id PK
+        uuid supplier_id FK
+        varchar name
+        varchar category
+        varchar unit
+        decimal_10_2 unit_price
+        int moq
+        varchar image_url
+        boolean is_active
+        timestamptz created_at
     }
 
-    MATERIAL {
-        int id PK
-        string name
-        decimal price
-        string unit
+    PRICING_RECIPES {
+        uuid id PK
+        uuid user_id FK
+        varchar recipe_name
+        decimal_10_2 material_cost
+        decimal_10_2 packaging_cost
+        decimal_5_2 labor_hours
+        decimal_10_2 hourly_rate
+        decimal_5_2 desired_margin
+        decimal_10_2 total_cost
+        decimal_10_2 suggested_price
+        decimal_10_2 net_profit
+        timestamptz created_at
+        timestamptz updated_at
     }
 
-    SUPPLIER {
-        int id PK
-        string name
-        string location
-        string contact
+    ORDERS {
+        uuid id PK
+        uuid user_id FK
+        uuid supplier_id FK
+        decimal_10_2 subtotal
+        decimal_10_2 shipping_fee
+        decimal_10_2 total_amount
+        varchar status
+        text delivery_addr
+        varchar city
+        decimal_10_8 latitude
+        decimal_11_8 longitude
+        timestamptz created_at
+        timestamptz updated_at
     }
 
-    ORDER {
-        int id PK
-        int business_id FK
-        int supplier_id FK
-        decimal total_amount
-        string status
+    ORDER_ITEMS {
+        uuid id PK
+        uuid order_id FK
+        uuid product_id FK
+        int quantity
+        decimal_10_2 unit_price
     }
+
+    PAYMENTS {
+        uuid id PK
+        uuid order_id FK
+        varchar moyasar_id UK
+        decimal_10_2 amount
+        varchar currency
+        varchar method
+        varchar status
+        timestamptz paid_at
+        timestamptz created_at
+    }
+
+    MESSAGES {
+        uuid id PK
+        uuid sender_id FK
+        uuid recipient_id FK
+        uuid product_id FK
+        text body
+        boolean is_read
+        timestamptz created_at
+    }
+
+    
+
 ```
 ---
 
