@@ -148,9 +148,9 @@ Maksab follows a **Decoupled Full-Stack Web Architecture**. The frontend is buil
 
 ```
 ```mermaid
-erDiagram
 
 erDiagram
+
     USERS ||--o| SUPPLIER_PROFILES : has
     USERS ||--o{ PRODUCTS : supplies
     USERS ||--o{ PRICING_RECIPES : saves
