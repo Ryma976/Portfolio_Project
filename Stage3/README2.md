@@ -1004,7 +1004,9 @@ The database uses related entities such as:
 * OrderItem
 
 
+
 erDiagram
+
     USER ||--o{ PRODUCT : "lists (supplier)"
     USER ||--o| CART : owns
     USER ||--o{ ORDER : "places (merchant)"
