@@ -108,10 +108,7 @@ flowchart TB
 
     B -->|"Maps API"| F
 
-    classDef frontend fill:#E3F2FD,stroke:#1976D2,stroke-width:2px,color:#0D47A1
-    classDef backend fill:#E8F5E9,stroke:#388E3C,stroke-width:2px,color:#1B5E20
-    classDef database fill:#FFF3E0,stroke:#F57C00,stroke-width:2px,color:#E65100
-    classDef external fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px,color:#4A148C
+    
 
     class A frontend
     class B backend
