@@ -52,3 +52,77 @@
 | **Should Have** | US-03, US-05, US-06, US-08, US-12, US-15 | **Core Operational Enhancements:** Business profile management, inventory status updates, order status management, advanced filtering, retail price suggestion, and order receipt history. |
 | **Could Have** | US-16 | **Desirable Feature:** In-app direct messaging between Merchant and Supplier for custom inquiries. |
 | **Won't Have** | Admin Dashboard, Saved Recipe Database, Live Driver GPS Tracking | **Explicitly Out of MVP Scope:** Excluded to focus development efforts on B2B core flow, reduce complexity, and meet project deadlines. |
+
+# Task 1:  Design System Architecture
+React.js frontend communicates with the Python Flask backend through REST APIs (using JSON format). The backend handles the core business logic, including the pricing calculator engine and order processing, while communicating with PostgreSQL via SQL/ORM for data management (Users, Businesses, Supplies, Costs, and Orders). Additionally, the system seamlessly integrates with external services, including Moyasar/Tap API for payment processing, Google Maps API for location-based logistics, and Supplier Services for raw material requests.
+
+##  System Architecture
+```mermaid
+flowchart TB
+
+    %% Frontend
+    A[" React.js Frontend<br/>User Interface"] 
+    
+    %% Backend
+    B[" Python Flask Backend<br/>REST API & Business Logic"]
+
+    %% Database
+    C[(" PostgreSQL Database<br/>Users • Businesses • Products • Orders")]
+
+    %% External Services
+    D[" Moyasar / Tap API<br/>Payment Processing"]
+    E[" Google Maps API<br/>Location & Maps"]
+
+    %% Main Flow
+    A -->|"REST API / JSON"| B
+    B -->|"SQL / ORM"| C
+
+    %% External APIs
+    B -->|"Payment API"| D
+    B -->|"Maps API"| E
+
+    
+    class A frontend
+    class B backend
+    class C database
+    class D,E external
+```
+##  MAKSAB System Architecture
+
+```mermaid
+flowchart TB
+
+    A[" React.js Frontend<br/>MAKSAB Web Platform"]
+
+    B[" Python Flask Backend<br/>REST API & Business Logic"]
+
+    C[(" PostgreSQL Database<br/>
+    Users • Home Businesses<br/>
+    Materials • Suppliers<br/>
+    Costs • Orders")]
+
+    D[" Supplier Services<br/>Supplier & Material Data"]
+
+    E[" Moyasar / Tap API<br/>Payment Processing"]
+
+    F[" Google Maps API<br/>Supplier Locations"]
+
+    A -->|"REST API / JSON"| B
+
+    B -->|"SQL / ORM"| C
+
+    B -->|"Supplier & Material Requests"| D
+
+    B -->|"Payment API"| E
+
+    B -->|"Maps API"| F
+
+    
+
+    class A frontend
+    class B backend
+    class C database
+    class D,E,F external
+```
+
+
