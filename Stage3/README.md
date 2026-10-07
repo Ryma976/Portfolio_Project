@@ -14,14 +14,14 @@
 
 ## 0. User Stories and Prioritization (MoSCoW)
 
-### 👥 User Roles (Personas)
+###  User Roles (Personas)
 To maintain clarity across all user stories, the following terms represent the primary actors of the **Maksab (مَكْسَب)** platform:
 * **Merchant:** A home-based business owner who uses Maksab to calculate product costs, manage recipes, and source wholesale supplies.
 * **Supplier:** A verified vendor who lists raw materials and packaging supplies on the platform.
 
 ---
 
-### 🎯 Prioritized User Stories
+###  Prioritized User Stories
 
 | Priority | ID | User Story |
 | --- | --- | --- |
@@ -47,22 +47,22 @@ To maintain clarity across all user stories, the following terms represent the p
 
 React.js frontend communicates with the Python Flask backend through REST APIs (using JSON format). The backend handles the core business logic, including the pricing calculator engine and order processing, while communicating with PostgreSQL via SQL/ORM for data management (Users, Businesses, Supplies, Costs, and Orders). Additionally, the system seamlessly integrates with external services, including Moyasar/Tap API for payment processing, Google Maps API for location-based logistics, and Supplier Services for raw material requests.
 
-## 🏗️ System Architecture
+##  System Architecture
 ```mermaid
 flowchart TB
 
     %% Frontend
-    A["🖥️ React.js Frontend<br/>User Interface"] 
+    A[" React.js Frontend<br/>User Interface"] 
     
     %% Backend
-    B["⚙️ Python Flask Backend<br/>REST API & Business Logic"]
+    B[" Python Flask Backend<br/>REST API & Business Logic"]
 
     %% Database
-    C[("🗄️ PostgreSQL Database<br/>Users • Businesses • Products • Orders")]
+    C[(" PostgreSQL Database<br/>Users • Businesses • Products • Orders")]
 
     %% External Services
-    D["💳 Moyasar / Tap API<br/>Payment Processing"]
-    E["📍 Google Maps API<br/>Location & Maps"]
+    D[" Moyasar / Tap API<br/>Payment Processing"]
+    E[" Google Maps API<br/>Location & Maps"]
 
     %% Main Flow
     A -->|"REST API / JSON"| B
@@ -83,25 +83,25 @@ flowchart TB
     class C database
     class D,E external
 ```
-## 🏗️ MAKSAB System Architecture
+##  MAKSAB System Architecture
 
 ```mermaid
 flowchart TB
 
-    A["🖥️ React.js Frontend<br/>MAKSAB Web Platform"]
+    A[" React.js Frontend<br/>MAKSAB Web Platform"]
 
-    B["⚙️ Python Flask Backend<br/>REST API & Business Logic"]
+    B[" Python Flask Backend<br/>REST API & Business Logic"]
 
-    C[("🗄️ PostgreSQL Database<br/>
+    C[(" PostgreSQL Database<br/>
     Users • Home Businesses<br/>
     Materials • Suppliers<br/>
     Costs • Orders")]
 
-    D["🏪 Supplier Services<br/>Supplier & Material Data"]
+    D[" Supplier Services<br/>Supplier & Material Data"]
 
-    E["💳 Moyasar / Tap API<br/>Payment Processing"]
+    E[" Moyasar / Tap API<br/>Payment Processing"]
 
-    F["📍 Google Maps API<br/>Supplier Locations"]
+    F[" Google Maps API<br/>Supplier Locations"]
 
     A -->|"REST API / JSON"| B
 
@@ -126,7 +126,7 @@ flowchart TB
 
 
 
-### 💡 Architectural Decisions & Rationale
+###  Architectural Decisions & Rationale
 
 * **React.js (Single Page Application):** Provides a smooth, highly responsive UI for complex interactive modules like the Smart Pricing Calculator, live wholesale shopping cart, and location picker without triggering full-page reloads.
 
@@ -141,7 +141,7 @@ flowchart TB
 
 ---
 
-## 🗄️ 2. Data Model (Entity-Relationship)
+##  2. Data Model (Entity-Relationship)
 
 ### 2.1 Entity-Relationship (ER) Diagram
 
@@ -305,7 +305,7 @@ erDiagram
 ```
 ---
 
-## 🔄 3. Sequence Diagram
+##  3. Sequence Diagram
 
 ### Wholesale Order, Distance Calculation & Payment Flow
 
@@ -340,7 +340,7 @@ User (Client)         React Frontend          Flask API            Google Maps A
 
 ---
 
-## 🔌 4. API Specifications
+##  4. API Specifications
 
 ### 4.1 External Third-Party Integrations
 
@@ -501,7 +501,7 @@ User (Client)         React Frontend          Flask API            Google Maps A
 
 ---
 
-## ⚖️ 6. Technical Rationales & Justifications
+##  6. Technical Rationales & Justifications
 
 * **React + Flask Decoupled Architecture:** Provides clear technical separation between backend data processing (Shahad) and frontend UI management (Shomukh), enabling concurrent feature development without code collisions.
 
