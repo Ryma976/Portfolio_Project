@@ -1,4 +1,8 @@
-System Architecture
+##  System Architecture
+
+React.js frontend communicates with the Python Flask backend through REST APIs (using JSON format). The backend handles the core business logic, including the pricing calculator engine and order processing, while communicating with PostgreSQL via SQL/ORM for data management (Users, Businesses, Supplies, Costs, and Orders). Additionally, the system seamlessly integrates with external services, including Moyasar/Tap API for payment processing, Google Maps API for location-based logistics, and Supplier Services for raw material requests.
+
+##  System Architecture
 
 ```mermaid
 flowchart TB
@@ -24,4 +28,4 @@ flowchart TB
 ## 2. System Architecture
 ```
 
-بعد ما ترفعونه على GitHub، افتحوا الصفحة وتأكدوا إن الرسمة طلعت. وإذا طلع خطأ، صوروه لي وأصلحه.
+.
