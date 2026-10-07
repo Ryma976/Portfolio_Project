@@ -947,12 +947,185 @@ A feature will be considered complete when:
 * The feature has been successfully merged into `development`.
 * The feature works correctly with the rest of the application.
 
-##  6. Technical Rationales & Justifications
+# 6. Technical Documentation
 
-* **React + Flask Decoupled Architecture:** Provides clear technical separation between backend data processing (Shahad) and frontend UI management (Shomukh), enabling concurrent feature development without code collisions.
+## Purpose
 
+This section provides an overview of the technical design and implementation approach for the Maksab MVP.
 
-* **PostgreSQL over NoSQL:** Financial accounting for production pricing and multi-item wholesale orders demands strong ACID guarantees and relational constraints, making PostgreSQL the safest choice.
+### User Stories and Mockups
 
+The project requirements were defined using prioritized user stories based on the MoSCoW method.
 
-* **Facade Structural Pattern:** Abstracts third-party complexities (Moyasar payment webhooks, Google Maps distance matrix calculations) behind clean internal Flask controllers, keeping the codebase maintainable and testable.
+The main MVP features include:
+
+* User registration and authentication
+* Supplier product listing
+* Product search and browsing
+* Shopping cart
+* Production cost and pricing calculator
+* Business location selection
+* Online payment
+* Order management
+
+The main user interfaces were designed using Figma.
+
+### System Architecture
+
+Maksab uses a client-server architecture where:
+
+* Frontend handles the user interface
+* Backend handles business logic and REST APIs
+* Database stores application data
+* Google Maps provides location services
+* Moyasar handles online payments
+
+### Components and Database Design
+
+The main system components include:
+
+* Authentication
+* User Profile
+* Product Management
+* Marketplace
+* Shopping Cart
+* Order Management
+* Pricing Calculator
+* Payment
+
+The database uses related entities such as:
+
+* User
+* Profile
+* Product
+* Cart
+* CartItem
+* Order
+* OrderItem
+
+### Sequence Diagrams
+
+Key system interactions were documented using sequence diagrams for:
+
+* User Registration and Login
+* Product Browsing, Cart, and Checkout
+* Pricing Calculator
+
+These diagrams show how users, frontend, backend, database, and external services interact.
+
+### API Specifications
+
+Maksab uses REST APIs for communication between the frontend and backend.
+
+External APIs include:
+
+* **Google Maps API** — used for selecting the merchant's business location.
+* **Moyasar API** — used for online payment processing.
+
+Internal APIs cover:
+
+* Authentication
+* Products
+* Cart
+* Orders
+* Pricing Calculator
+* User Profile
+
+### SCM Strategy
+
+Git and GitHub are used for source code management and team collaboration.
+
+The project uses:
+
+* `main` for the stable version
+* `development` for active development
+* `feature/*` for individual features
+
+Pull Requests and code reviews are used before merging changes.
+
+### QA Strategy
+
+Testing focuses on the main MVP features.
+
+The QA process includes:
+
+* Unit Testing
+* API Testing
+* Integration Testing
+* End-to-End Testing
+* Manual Testing
+
+Postman is used for API testing, while GitHub is used to manage code changes and reviews.
+
+### Technical Justifications
+
+#### Python
+
+Chosen because:
+
+* Simple and readable syntax
+* Strong development ecosystem
+* Large community support
+* Suitable for backend development
+* Supports rapid development
+
+#### Relational Database
+
+Chosen because:
+
+* Structured data management
+* Supports relationships between entities
+* Suitable for users, products, carts, and orders
+* Reliable and easy to maintain
+
+#### REST API
+
+Chosen because:
+
+* Simple communication between frontend and backend
+* Easy to test and maintain
+* Clear endpoint structure
+* Suitable for web applications
+
+#### Google Maps API
+
+Chosen because:
+
+* Provides accurate location services
+* Easy integration with web applications
+* Allows merchants to select their business location
+
+#### Moyasar
+
+Chosen because:
+
+* Supports online payments
+* Suitable for the Saudi market
+* Provides payment integration for web applications
+
+#### Modular Architecture
+
+Chosen because:
+
+* Easier maintenance
+* Clear separation of responsibilities
+* Independent testing of components
+* Easier future expansion
+
+---
+
+# Final Technical Documentation Summary
+
+This Technical Documentation includes:
+
+* User Stories and Prioritization
+* Mockups
+* System Architecture
+* Components and Database Design
+* Sequence Diagrams
+* API Specifications
+* SCM Strategy
+* QA Strategy
+* Technical Justifications
+
+### Author : Reem Alanazi
