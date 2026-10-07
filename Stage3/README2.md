@@ -652,4 +652,298 @@ The internal API provides the main connection between the Maksab frontend and ba
 
 External services such as **Google Maps** and **Moyasar** are integrated through the backend where appropriate.
 
+# 5. SCM and QA Strategies
+
+## 5.1 Software Configuration Management (SCM)
+
+Maksab will use **Git and GitHub** to manage source code, track changes, and coordinate development between team members.
+
+### Repository Structure
+
+The project repository will contain the main application code, documentation, database configuration, tests, and project-related files.
+
+```text
+maksab/
+├── backend/
+├── frontend/
+├── tests/
+├── database/
+├── docs/
+├── README.md
+└── .gitignore
+```
+
+### Branching Strategy
+
+The team will use a simple Git branching strategy to keep the main codebase stable while allowing team members to work on different features.
+
+```text
+main
+  │
+  └── development
+       ├── feature/authentication
+       ├── feature/products
+       ├── feature/cart
+       ├── feature/orders
+       ├── feature/calculator
+       └── feature/profile-location
+```
+
+#### Branches
+
+| Branch        | Purpose                                                                   |
+| ------------- | ------------------------------------------------------------------------- |
+| `main`        | Stable version of the project that is ready for release or demonstration. |
+| `development` | Integration branch where completed features are combined and tested.      |
+| `feature/*`   | Used by developers to implement individual features or tasks.             |
+
+### Commit Strategy
+
+Team members will make regular commits after completing a small, meaningful change rather than combining many unrelated changes into one commit.
+
+Commit messages should clearly describe the change.
+
+Examples:
+
+```text
+feat: add user registration endpoint
+feat: implement product search
+fix: correct cart total calculation
+test: add calculator API tests
+docs: update API documentation
+```
+
+### Pull Requests and Code Reviews
+
+Before a feature is merged into the `development` branch:
+
+1. The developer pushes the feature branch to GitHub.
+2. A Pull Request is created.
+3. Another team member reviews the code.
+4. The reviewer checks functionality, readability, and potential errors.
+5. Required changes are completed if issues are found.
+6. The Pull Request is merged into `development`.
+7. The feature branch can then be deleted after merging.
+
+Direct pushes to `main` should be avoided.
+
+---
+
+## 5.2 QA Strategy
+
+Quality assurance will be performed throughout development rather than only at the end of the project.
+
+The testing strategy will focus on the main Maksab MVP functionality:
+
+* Authentication
+* Product management
+* Product search and filtering
+* Shopping cart
+* Order creation
+* Payment integration
+* Pricing calculator
+* Business profile and location
+
+### Testing Levels
+
+| Test Type               | Purpose                                                                               | Example                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Unit Testing**        | Test individual functions or components independently.                                | Test pricing and profit calculations.                                         |
+| **API Testing**         | Verify that backend endpoints return the expected results.                            | Test login, products, cart, and order endpoints.                              |
+| **Integration Testing** | Verify that multiple system components work together correctly.                       | Test creating an order and saving it in the database.                         |
+| **End-to-End Testing**  | Test complete user workflows from the user's perspective.                             | Merchant searches for a product, adds it to the cart, and completes checkout. |
+| **Manual Testing**      | Check UI behavior and important scenarios that may not be covered by automated tests. | Test forms, navigation, validation messages, and responsive behavior.         |
+
+---
+
+## 5.3 Testing Tools
+
+The team will use the following tools during development:
+
+| Tool                        | Usage                                           |
+| --------------------------- | ----------------------------------------------- |
+| **Postman**                 | Test and validate REST API endpoints.           |
+| **Pytest**                  | Unit and backend testing for Python code.       |
+| **GitHub**                  | Source control, Pull Requests, and code review. |
+| **Browser Developer Tools** | Debug frontend behavior and API requests.       |
+
+---
+
+## 5.4 API Testing
+
+Postman will be used to test the Maksab REST API.
+
+The main endpoints to test include:
+
+```text
+POST   /api/auth/register
+POST   /api/auth/login
+
+GET    /api/products
+GET    /api/products/{id}
+POST   /api/products
+PUT    /api/products/{id}
+
+GET    /api/cart
+POST   /api/cart/items
+PUT    /api/cart/items/{id}
+DELETE /api/cart/items/{id}
+
+POST   /api/orders
+GET    /api/orders
+GET    /api/orders/{id}
+POST   /api/orders/{id}/payment
+
+POST   /api/calculator/price
+
+GET    /api/profile
+PUT    /api/profile
+PUT    /api/profile/location
+```
+
+For each endpoint, the team will check:
+
+* Correct HTTP method.
+* Valid request data.
+* Invalid or missing input.
+* Authentication and authorization.
+* Correct HTTP status code.
+* Correct JSON response.
+* Database changes when applicable.
+* Error handling.
+
+---
+
+## 5.5 End-to-End Testing
+
+End-to-end testing will focus on the most important Merchant workflow.
+
+### Main Purchase Flow
+
+```text
+Register / Login
+      ↓
+Search for Product
+      ↓
+View Product Details
+      ↓
+Add Product to Cart
+      ↓
+Review Cart
+      ↓
+Enter Delivery Location
+      ↓
+Create Order
+      ↓
+Complete Payment
+      ↓
+Receive Order Confirmation
+```
+
+The team will verify that data is correctly passed between the frontend, backend, database, and payment service throughout the complete flow.
+
+### Pricing Calculator Flow
+
+```text
+Open Calculator
+      ↓
+Enter Material Cost
+      ↓
+Enter Packaging Cost
+      ↓
+Enter Labor Cost
+      ↓
+Enter Profit Margin
+      ↓
+Calculate
+      ↓
+Display Cost Per Unit
+      ↓
+Display Suggested Selling Price
+      ↓
+Display Expected Profit
+```
+
+---
+
+## 5.6 QA Workflow
+
+Testing will be integrated into the development process.
+
+```text
+Develop Feature
+      ↓
+Run Unit Tests
+      ↓
+Test API with Postman
+      ↓
+Create Pull Request
+      ↓
+Code Review
+      ↓
+Fix Issues
+      ↓
+Merge into Development
+      ↓
+Integration Testing
+      ↓
+End-to-End Testing
+      ↓
+Release Candidate
+```
+
+---
+
+## 5.7 Deployment Strategy
+
+The project will use separate environments for development and the final release.
+
+### Development Environment
+
+Developers will test their features locally before merging them into the `development` branch.
+
+### Staging Environment
+
+The `development` branch can be deployed to a staging environment for integration and end-to-end testing before the final release.
+
+### Production Environment
+
+The `main` branch represents the stable version prepared for the final project demonstration or production deployment.
+
+```text
+Feature Branch
+      ↓
+Development
+      ↓
+Staging
+      ↓
+QA Testing
+      ↓
+Main
+      ↓
+Production
+```
+
+Before deployment, the team will verify that:
+
+* All critical tests pass.
+* No major bugs remain.
+* Environment variables and API keys are configured securely.
+* Database configuration is correct.
+* The main Merchant purchase flow works correctly.
+* The pricing calculator produces correct results.
+
+---
+
+## 5.8 Definition of Done
+
+A feature will be considered complete when:
+
+* The feature meets its corresponding user story requirements.
+* The code has been committed to the appropriate feature branch.
+* Unit or API tests have been completed where applicable.
+* The feature has been reviewed by another team member.
+* No critical errors remain.
+* The feature has been successfully merged into `development`.
+* The feature works correctly with the rest of the application.
 
