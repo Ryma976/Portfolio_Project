@@ -1,442 +1,354 @@
-# Maksab — Technical Documentation
+# Maksab – Technical Documentation Report
 
-## 1. Project Overview
+## 1. Introduction
 
-**Maksab (مَكْسَب)** is a B2B wholesale marketplace and smart pricing calculator platform designed for home-based businesses and wholesale suppliers in Riyadh, Saudi Arabia.
+Maksab is a B2B platform designed to support home-based businesses and productive families by connecting them with wholesale suppliers. The platform helps merchants find materials and packaging, compare products, calculate production costs, and make better pricing decisions.
 
-The platform helps Merchants find wholesale raw materials and packaging supplies, compare products from Suppliers, manage wholesale orders, and calculate production costs and suggested selling prices.
+The system focuses on simplifying the purchasing process while providing tools that help small businesses manage their costs and improve their profitability.
 
-The MVP focuses on the following core workflow:
+---
+
+## 2. User Stories and Mockups
+
+The system requirements were defined using User Stories and prioritized using the MoSCoW method.
+
+### Must Have
+
+* User registration and login.
+* Supplier product listing.
+* Product search and product details.
+* Shopping cart management.
+* Production cost calculator.
+* Business location selection.
+* Online payment.
+
+### Should Have
+
+* Business profile management.
+* Supplier product and stock updates.
+* Supplier order management.
+* Product filtering.
+* Selling price and profit calculation.
+* Order history and digital receipts.
+
+### Could Have
+
+* In-app communication between merchants and suppliers.
+
+### Won't Have
+
+* Admin dashboard.
+* Saved recipe database.
+* Live driver GPS tracking.
+
+The main user interfaces were designed as Figma mockups. The mockups cover the main merchant and supplier flows, including authentication, product browsing, cart, checkout, and pricing calculation.
+
+---
+
+## 3. System Architecture
+
+Maksab follows a client-server architecture where the frontend communicates with the backend through REST APIs.
+
+### High-Level Architecture
 
 ```text
-Business Need
-      ↓
-Find Required Materials
-      ↓
-Supplier Discovery
-      ↓
-Product Selection
-      ↓
-Cost Calculation
-      ↓
-Order & Payment
-      ↓
-Business Growth
++----------------------+
+|       Users          |
+| Merchant / Supplier  |
++----------+-----------+
+           |
+           v
++----------------------+
+|      Frontend        |
+|      Web Interface   |
++----------+-----------+
+           |
+        REST API
+           |
+           v
++----------------------+
+|       Backend        |
+| Business Logic & API |
++----+------------+----+
+     |            |
+     v            v
++---------+   +----------------+
+|Database |   | External APIs  |
+|         |   | Google Maps    |
+|         |   | Moyasar        |
++---------+   +----------------+
 ```
 
-### Target Users
+The frontend is responsible for the user interface, while the backend handles authentication, business logic, product management, orders, cart operations, and the pricing calculator. The database stores users, products, carts, orders, and related information.
 
-* **Merchant:** A home-based business owner who purchases wholesale supplies and manages production costs.
-* **Supplier:** A wholesale distributor who lists products and manages incoming orders.
-
-The Admin Dashboard is outside the MVP scope and will be managed through backend and database administration.
+Google Maps is used for location selection, while Moyasar is used for online payment processing.
 
 ---
 
-# 2. User Stories and Scope Definition
-
-## 2.1 MoSCoW Prioritization
-
-The MVP user stories are prioritized using the MoSCoW method.
-
-| Priority        | User Stories                                                     |
-| --------------- | ---------------------------------------------------------------- |
-| **Must Have**   | US-01, US-02, US-04, US-07, US-09, US-10, US-11, US-13, US-14    |
-| **Should Have** | US-03, US-05, US-06, US-08, US-12, US-15                         |
-| **Could Have**  | US-16                                                            |
-| **Won't Have**  | Admin Dashboard, Saved Recipe Database, Live Driver GPS Tracking |
-
-The complete user stories and scope definition are documented in the project's Task 0.
-
----
-
-# 3. User Interface Mockups
-
-The main MVP screens will be designed in **Figma**.
-
-The planned screens include:
-
-* Registration and Login
-* Merchant Dashboard
-* Supplier Dashboard
-* Product Listing
-* Product Details
-* Shopping Cart
-* Checkout
-* Payment
-* Order History
-* Pricing Calculator
-* Business Profile
-* Location Selection
-
-The mockups focus on the main user journeys and will be used as a reference during frontend implementation.
-
----
-
-# 4. System Architecture
-
-Maksab will follow a client-server architecture where the frontend communicates with the backend through a REST API.
-
-```text
-                    ┌─────────────────────┐
-                    │       Users         │
-                    │ Merchant / Supplier │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │      Frontend       │
-                    │    Web Interface    │
-                    └──────────┬──────────┘
-                               │
-                         REST API / JSON
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │       Backend       │
-                    │   Business Logic    │
-                    │ Authentication      │
-                    │ Products / Orders   │
-                    │ Pricing Calculator  │
-                    └──────┬───────┬──────┘
-                           │       │
-                  ┌────────┘       └──────────┐
-                  ▼                           ▼
-        ┌─────────────────┐          ┌─────────────────┐
-        │    Database     │          │ External APIs   │
-        │ Users           │          │ Google Maps     │
-        │ Products        │          │ Moyasar         │
-        │ Cart / Orders   │          └─────────────────┘
-        └─────────────────┘
-```
+## 4. Components and Database Design
 
 ### Main Components
 
-| Component   | Responsibility                 |
-| ----------- | ------------------------------ |
-| Frontend    | User interface and interaction |
-| Backend     | Business logic and REST API    |
-| Database    | Persistent application data    |
-| Google Maps | Business and delivery location |
-| Moyasar     | Online payment processing      |
+The system is divided into several main components:
 
----
+* **Authentication:** Registration and login.
+* **User Profile:** Business information and location.
+* **Product Management:** Product listing, pricing, stock, and product details.
+* **Marketplace:** Searching, filtering, and browsing products.
+* **Cart:** Adding, removing, and updating product quantities.
+* **Orders:** Creating and tracking wholesale orders.
+* **Pricing Calculator:** Calculating production cost, selling price, and expected profit.
+* **Payment:** Processing online payments through Moyasar.
 
-# 5. Components and Database Design
+### Database Design
 
-## 5.1 Main Components
+A relational database is used to maintain structured relationships between users, products, carts, and orders.
 
-The backend will be divided logically into the following areas:
+Main entities include:
 
-* Authentication
-* User Profiles
-* Product Management
-* Product Search
-* Shopping Cart
-* Order Management
-* Payment
-* Pricing Calculator
-* Location Management
-
-## 5.2 Database Structure
-
-The database will store the main entities required by the MVP.
-
-```text
-User
- ├── user_id
- ├── name
- ├── email
- ├── password
- └── role
-
-Profile
- ├── profile_id
- ├── user_id
- ├── business_name
- ├── phone
- ├── address
- ├── latitude
- └── longitude
-
-Product
- ├── product_id
- ├── supplier_id
- ├── name
- ├── description
- ├── category
- ├── price
- ├── MOQ
- └── stock_status
-
-Cart
- ├── cart_id
- └── merchant_id
-
-CartItem
- ├── cart_item_id
- ├── cart_id
- ├── product_id
- └── quantity
-
-Order
- ├── order_id
- ├── merchant_id
- ├── total
- ├── status
- └── payment_status
-
-OrderItem
- ├── order_item_id
- ├── order_id
- ├── product_id
- ├── quantity
- └── price
-```
+| Entity    | Purpose                                    |
+| --------- | ------------------------------------------ |
+| User      | Stores authentication and role information |
+| Profile   | Stores business and contact information    |
+| Product   | Stores supplier product information        |
+| Cart      | Stores a merchant's active cart            |
+| CartItem  | Stores products and quantities in the cart |
+| Order     | Stores wholesale order information         |
+| OrderItem | Stores products included in an order       |
 
 ### Main Relationships
 
 ```text
-User 1 ───── 1 Profile
-
-User 1 ───── * Product
-(Supplier)
-
-User 1 ───── 1 Cart
-(Merchant)
-
-Cart 1 ───── * CartItem
-
-Product 1 ───── * CartItem
-
-User 1 ───── * Order
-(Merchant)
-
-Order 1 ───── * OrderItem
-
-Product 1 ───── * OrderItem
+User 1 ─── 1 Profile
+User 1 ─── N Products
+User 1 ─── 1 Cart
+Cart 1 ─── N CartItems
+Product 1 ─── N CartItems
+User 1 ─── N Orders
+Order 1 ─── N OrderItems
+Product 1 ─── N OrderItems
 ```
 
----
-
-# 6. Sequence Diagrams
-
-The following diagrams describe the main MVP interactions:
-
-### 6.1 User Registration and Login
-
-Shows the interaction between the User, Frontend, Backend, and Database during registration and authentication.
-
-### 6.2 Product Browsing, Cart, Checkout and Payment
-
-Shows the main Merchant purchasing workflow, including product retrieval, cart management, order creation, and Moyasar payment processing.
-
-### 6.3 Pricing Calculator
-
-Shows how the Merchant provides production costs and profit margin and receives the calculated production cost, suggested selling price, and expected profit.
-
-The detailed Mermaid sequence diagrams are provided in the project's Sequence Diagrams section.
+The database design supports the main marketplace workflow while keeping the data organized and consistent.
 
 ---
 
-# 7. API Specifications
+## 5. Sequence Diagrams
 
-## 7.1 External APIs
+Three key interactions were selected because they represent important parts of the system.
 
-| API                 | Purpose                                                                  |
-| ------------------- | ------------------------------------------------------------------------ |
-| **Google Maps API** | Allows Merchants to select and provide their business/delivery location. |
-| **Moyasar API**     | Handles online payment processing for wholesale orders.                  |
-
-## 7.2 Internal REST API
-
-The backend exposes RESTful endpoints using JSON.
-
-| Endpoint                   | Method | Purpose                                     |
-| -------------------------- | ------ | ------------------------------------------- |
-| `/api/auth/register`       | POST   | Register a new user                         |
-| `/api/auth/login`          | POST   | Authenticate a user                         |
-| `/api/products`            | GET    | Search and retrieve products                |
-| `/api/products/{id}`       | GET    | Retrieve product details                    |
-| `/api/products`            | POST   | Create a product                            |
-| `/api/products/{id}`       | PUT    | Update a product                            |
-| `/api/cart`                | GET    | Retrieve current cart                       |
-| `/api/cart/items`          | POST   | Add an item to cart                         |
-| `/api/cart/items/{id}`     | PUT    | Update cart quantity                        |
-| `/api/cart/items/{id}`     | DELETE | Remove cart item                            |
-| `/api/orders`              | POST   | Create an order                             |
-| `/api/orders`              | GET    | Retrieve order history                      |
-| `/api/orders/{id}`         | GET    | Retrieve order details                      |
-| `/api/orders/{id}/payment` | POST   | Process payment                             |
-| `/api/calculator/price`    | POST   | Calculate production cost and selling price |
-| `/api/profile`             | GET    | Retrieve user profile                       |
-| `/api/profile`             | PUT    | Update user profile                         |
-| `/api/profile/location`    | PUT    | Update business location                    |
-
-All API requests and responses use JSON unless otherwise specified.
-
----
-
-# 8. SCM and QA Plans
-
-## 8.1 Software Configuration Management
-
-The team will use **Git and GitHub** for version control.
-
-### Branching Strategy
+### 5.1 Registration and Login
 
 ```text
-main
-  │
-  └── development
-       ├── feature/authentication
-       ├── feature/products
-       ├── feature/cart
-       ├── feature/orders
-       ├── feature/calculator
-       └── feature/profile-location
+User
+  |
+  | Register/Login
+  v
+Frontend
+  |
+  | API Request
+  v
+Backend
+  |
+  | Validate User
+  v
+Database
+  |
+  | User Data
+  v
+Backend
+  |
+  | Response
+  v
+Frontend
+  |
+  v
+User
 ```
 
-### Development Process
-
-1. Create a feature branch.
-2. Implement the feature.
-3. Commit changes regularly.
-4. Push the feature branch to GitHub.
-5. Create a Pull Request.
-6. Perform code review.
-7. Fix identified issues.
-8. Merge into `development`.
-9. Test the integrated feature.
-10. Merge stable code into `main`.
-
-Direct pushes to `main` should be avoided.
-
-## 8.2 QA Strategy
-
-Testing will be performed throughout development.
-
-| Testing Type        | Tool / Method                       | Purpose                                 |
-| ------------------- | ----------------------------------- | --------------------------------------- |
-| Unit Testing        | Pytest                              | Test individual backend functions       |
-| API Testing         | Postman                             | Test REST API endpoints                 |
-| Integration Testing | Pytest / Postman                    | Verify backend and database interaction |
-| End-to-End Testing  | Manual / automated where applicable | Verify complete user workflows          |
-| Manual Testing      | Browser                             | Verify UI and critical user scenarios   |
-
-### Critical Flows
-
-The following flows will receive priority during QA:
-
-* User registration and login
-* Product search and viewing
-* Adding products to the cart
-* Order creation
-* Payment
-* Pricing calculation
-* Location selection
-
----
-
-# 9. Deployment Strategy
-
-The project will use three stages:
+### 5.2 Product Browsing, Cart and Checkout
 
 ```text
-Feature Branch
-      ↓
-Development
-      ↓
-Staging
-      ↓
-QA Testing
-      ↓
-Main
-      ↓
-Production
+Merchant
+   |
+   v
+Frontend
+   |
+   | Request Products
+   v
+Backend
+   |
+   v
+Database
+   |
+   | Products
+   v
+Frontend
+   |
+   | Add to Cart
+   v
+Backend
+   |
+   v
+Cart / Database
+   |
+   | Checkout
+   v
+Moyasar
+   |
+   | Payment Result
+   v
+Backend
+   |
+   v
+Order Created
 ```
 
-### Development
-
-Used for local development and initial feature testing.
-
-### Staging
-
-Used to test the integrated application before the final release.
-
-### Production
-
-Contains the stable version prepared for final deployment or project demonstration.
-
-Before deployment, the team will verify that critical tests pass and that external API credentials and environment variables are securely configured.
-
----
-
-# 10. Technical Justifications
-
-## 10.1 REST API
-
-A RESTful API was selected because it provides a simple and standard way for the frontend and backend to communicate.
-
-Using JSON also makes it easy to exchange structured data between the application components.
-
-## 10.2 Git and GitHub
-
-Git provides version control and allows the team to work on separate features without affecting the stable codebase.
-
-GitHub also provides Pull Requests and code reviews, which help identify issues before changes are merged.
-
-## 10.3 Relational Database
-
-A relational database is suitable for Maksab because the system contains structured relationships between users, products, carts, orders, and order items.
-
-For example, an order can contain multiple products, while each product can appear in multiple orders.
-
-## 10.4 Google Maps
-
-Google Maps was selected because location is an important part of the Merchant checkout process. It allows users to select their location using an interactive map and provides coordinates that can be stored with the delivery information.
-
-## 10.5 Moyasar
-
-Moyasar was selected as the payment provider because Maksab targets businesses in Saudi Arabia and requires online payment functionality for wholesale orders.
-
-## 10.6 Backend Architecture
-
-Separating the frontend from the backend allows the business logic and database operations to remain independent from the user interface.
-
-This also makes the system easier to maintain and allows the API to support future clients or applications.
-
-## 10.7 Pricing Calculator
-
-The pricing calculator is implemented as a separate backend service within the application rather than being tightly coupled with the marketplace.
-
-This allows Merchants to calculate production costs and selling prices independently of whether they purchase a product through the marketplace.
-
----
-
-# 11. MVP Scope Summary
-
-The Maksab MVP focuses on the essential B2B marketplace workflow:
+### 5.3 Pricing Calculator
 
 ```text
-Authentication
-      ↓
-Product Discovery
-      ↓
-Product Details
-      ↓
-Shopping Cart
-      ↓
-Location
-      ↓
-Checkout
-      ↓
-Payment
-      ↓
-Order Management
+Merchant
+   |
+   | Enter Material, Packaging,
+   | Labor and Profit Margin
+   v
+Frontend
+   |
+   | Calculator Request
+   v
+Backend
+   |
+   | Calculate Cost & Price
+   v
+Backend
+   |
+   | Result
+   v
+Frontend
+   |
+   v
+Merchant
 ```
 
-Alongside the marketplace, the standalone pricing calculator provides Merchants with a way to understand their production costs and determine appropriate selling prices.
+These diagrams describe how the main system components communicate during the selected use cases.
 
-Features such as the Admin Dashboard, saved recipe database, live driver tracking, and in-app messaging are excluded from the MVP or deferred according to the MoSCoW prioritization.
+---
 
+## 6. API Specifications
+
+### External APIs
+
+| API             | Purpose                                                     |
+| --------------- | ----------------------------------------------------------- |
+| Google Maps API | Allows merchants to select and save their business location |
+| Moyasar API     | Handles secure online payment processing                    |
+
+### Internal API
+
+The backend provides REST API endpoints under the `/api` path.
+
+| Method | Endpoint                   | Purpose                                     |
+| ------ | -------------------------- | ------------------------------------------- |
+| POST   | `/api/auth/register`       | Register a new user                         |
+| POST   | `/api/auth/login`          | Authenticate a user                         |
+| GET    | `/api/products`            | Retrieve products                           |
+| GET    | `/api/products/{id}`       | Retrieve product details                    |
+| POST   | `/api/products`            | Add a product                               |
+| PUT    | `/api/products/{id}`       | Update a product                            |
+| GET    | `/api/cart`                | Retrieve the current cart                   |
+| POST   | `/api/cart/items`          | Add an item to the cart                     |
+| PUT    | `/api/cart/items/{id}`     | Update item quantity                        |
+| DELETE | `/api/cart/items/{id}`     | Remove an item                              |
+| POST   | `/api/orders`              | Create an order                             |
+| GET    | `/api/orders`              | Retrieve order history                      |
+| GET    | `/api/orders/{id}`         | Retrieve order details                      |
+| POST   | `/api/orders/{id}/payment` | Process order payment                       |
+| POST   | `/api/calculator/price`    | Calculate production cost and selling price |
+| GET    | `/api/profile`             | Retrieve business profile                   |
+| PUT    | `/api/profile`             | Update business profile                     |
+| PUT    | `/api/profile/location`    | Update business location                    |
+
+Requests that require data use JSON request bodies, while responses are returned in JSON format.
+
+---
+
+## 7. SCM and QA Strategy
+
+### Source Code Management
+
+Git and GitHub are used to manage the source code and collaborate between team members.
+
+The main branches are:
+
+* `main` – stable version.
+* `development` – active development and integration.
+* `feature/*` – individual features.
+
+Team members work on feature branches and create Pull Requests before merging changes into the development branch. Code reviews are used to identify issues and maintain code quality.
+
+Commits should be clear and related to a specific change, for example:
+
+```text
+feat: add product search
+fix: update cart quantity
+test: add calculator tests
+docs: update API documentation
+```
+
+### Quality Assurance
+
+Testing focuses on the main functionality of the system:
+
+* Authentication.
+* Product browsing and search.
+* Cart operations.
+* Order creation.
+* Payment flow.
+* Pricing calculations.
+* Profile and location management.
+
+The testing process includes:
+
+1. Unit testing for individual functions.
+2. API testing using Postman.
+3. Integration testing between system components.
+4. End-to-end testing for important user flows.
+5. Manual testing before release.
+
+A feature is considered complete after implementation, testing, code review, and successful integration.
+
+---
+
+## 8. Technical Justifications
+
+### REST API
+
+REST was selected because it provides a simple and structured way for the frontend and backend to communicate. It also makes the system easier to maintain and extend.
+
+### Relational Database
+
+A relational database is suitable because Maksab contains structured data with clear relationships between users, products, carts, and orders.
+
+### Backend Framework
+
+A backend framework provides routing, request handling, validation, and business logic in an organized structure. This reduces duplicated code and makes the application easier to maintain.
+
+### Google Maps
+
+Google Maps was selected to provide an interactive and familiar way for merchants to select their business location accurately.
+
+### Moyasar
+
+Moyasar was selected to support online payments and provide a payment service suitable for the Saudi market.
+
+### Separate Frontend and Backend
+
+Separating the frontend from the backend keeps the user interface and business logic independent. This makes development easier for multiple team members and allows each part of the system to be developed and tested separately.
+
+---
+
+## 9. Conclusion
+
+The technical design of Maksab is based on a modular client-server architecture with a REST API, relational database, external location and payment services, and a structured development and testing process.
+
+The design covers the main requirements of the platform and provides a foundation that can be extended with additional features in the future.
