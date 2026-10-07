@@ -1128,4 +1128,4 @@ This Technical Documentation includes:
 * QA Strategy
 * Technical Justifications
 
-### Author : Reem Alanazi
+
