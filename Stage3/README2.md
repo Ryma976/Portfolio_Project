@@ -283,5 +283,373 @@ sequenceDiagram
 
 These diagrams provide a high-level view of the main interactions within the Maksab MVP.
 
+## 4. External and Internal APIs
+
+### 4.1 External APIs
+
+Maksab will use external APIs to support location services and online payment processing.
+
+| External API        | Purpose                                                                      | Why It Was Chosen                                                                                                          |
+| ------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Google Maps API** | Allows Merchants to select and pinpoint their business or delivery location. | It provides reliable map and location services and supports interactive location selection.                                |
+| **Moyasar API**     | Processes online payments for wholesale orders.                              | Moyasar supports online payments in Saudi Arabia and provides payment processing suitable for the project's target market. |
+
+---
+
+### 4.2 Internal REST API
+
+The Maksab backend will provide a RESTful API that connects the frontend with the database and handles authentication, products, carts, orders, and pricing calculations.
+
+The API will use **JSON** for request and response data.
+
+**Base URL:**
+
+```text
+/api
+```
+
+---
+
+### 4.3 Authentication Endpoints
+
+| Endpoint             | Method | Input | Output                                     |
+| -------------------- | ------ | ----- | ------------------------------------------ |
+| `/api/auth/register` | POST   | JSON  | User account information                   |
+| `/api/auth/login`    | POST   | JSON  | Authentication result and user information |
+
+#### Register User
+
+```http
+POST /api/auth/register
+Content-Type: application/json
+```
+
+Request:
+
+```json
+{
+  "name": "Ahmed Ali",
+  "email": "ahmed@example.com",
+  "password": "********",
+  "role": "merchant"
+}
+```
+
+Response:
+
+```json
+{
+  "message": "User registered successfully",
+  "user": {
+    "id": 1,
+    "name": "Ahmed Ali",
+    "email": "ahmed@example.com",
+    "role": "merchant"
+  }
+}
+```
+
+#### Login
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+```
+
+Request:
+
+```json
+{
+  "email": "ahmed@example.com",
+  "password": "********"
+}
+```
+
+Response:
+
+```json
+{
+  "message": "Login successful",
+  "user": {
+    "id": 1,
+    "name": "Ahmed Ali",
+    "role": "merchant"
+  }
+}
+```
+
+---
+
+### 4.4 Product Endpoints
+
+| Endpoint             | Method | Input            | Output           |
+| -------------------- | ------ | ---------------- | ---------------- |
+| `/api/products`      | GET    | Query parameters | List of products |
+| `/api/products/{id}` | GET    | Product ID       | Product details  |
+| `/api/products`      | POST   | JSON             | Created product  |
+| `/api/products/{id}` | PUT    | JSON             | Updated product  |
+
+#### Search Products
+
+```http
+GET /api/products?search=packaging&category=packaging
+```
+
+Response:
+
+```json
+{
+  "products": [
+    {
+      "id": 12,
+      "name": "Paper Food Boxes",
+      "category": "packaging",
+      "price": 45.00,
+      "moq": 100,
+      "stock_status": "in_stock",
+      "supplier_id": 5
+    }
+  ]
+}
+```
+
+#### Get Product Details
+
+```http
+GET /api/products/12
+```
+
+Response:
+
+```json
+{
+  "id": 12,
+  "name": "Paper Food Boxes",
+  "description": "Food-safe paper boxes",
+  "price": 45.00,
+  "moq": 100,
+  "stock_status": "in_stock",
+  "supplier_id": 5
+}
+```
+
+---
+
+### 4.5 Cart Endpoints
+
+| Endpoint               | Method | Input          | Output           |
+| ---------------------- | ------ | -------------- | ---------------- |
+| `/api/cart`            | GET    | Authentication | Current cart     |
+| `/api/cart/items`      | POST   | JSON           | Added cart item  |
+| `/api/cart/items/{id}` | PUT    | JSON           | Updated quantity |
+| `/api/cart/items/{id}` | DELETE | Cart item ID   | Updated cart     |
+
+#### Add Item to Cart
+
+```http
+POST /api/cart/items
+Content-Type: application/json
+```
+
+Request:
+
+```json
+{
+  "product_id": 12,
+  "quantity": 200
+}
+```
+
+Response:
+
+```json
+{
+  "message": "Item added to cart",
+  "cart": {
+    "items": [
+      {
+        "product_id": 12,
+        "quantity": 200,
+        "unit_price": 45.00,
+        "subtotal": 90.00
+      }
+    ],
+    "total": 90.00
+  }
+}
+```
+
+---
+
+### 4.6 Order and Checkout Endpoints
+
+| Endpoint                   | Method | Input          | Output         |
+| -------------------------- | ------ | -------------- | -------------- |
+| `/api/orders`              | POST   | JSON           | Created order  |
+| `/api/orders`              | GET    | Authentication | Order history  |
+| `/api/orders/{id}`         | GET    | Order ID       | Order details  |
+| `/api/orders/{id}/payment` | POST   | JSON           | Payment result |
+
+#### Create Order
+
+```http
+POST /api/orders
+Content-Type: application/json
+```
+
+Request:
+
+```json
+{
+  "delivery_address": "Riyadh, Saudi Arabia",
+  "latitude": 24.7136,
+  "longitude": 46.6753
+}
+```
+
+Response:
+
+```json
+{
+  "message": "Order created successfully",
+  "order": {
+    "id": 101,
+    "status": "pending_payment",
+    "total": 90.00
+  }
+}
+```
+
+#### Process Payment
+
+```http
+POST /api/orders/101/payment
+Content-Type: application/json
+```
+
+Request:
+
+```json
+{
+  "payment_method": "card"
+}
+```
+
+Response:
+
+```json
+{
+  "message": "Payment successful",
+  "order_id": 101,
+  "payment_status": "paid"
+}
+```
+
+The backend will communicate with the **Moyasar API** to process the actual payment. Payment credentials and sensitive payment information will not be stored directly in the Maksab database.
+
+---
+
+### 4.7 Pricing Calculator Endpoint
+
+The pricing calculator is a core feature of Maksab and allows Merchants to calculate production costs and suggested selling prices.
+
+| Endpoint                | Method | Input | Output                                              |
+| ----------------------- | ------ | ----- | --------------------------------------------------- |
+| `/api/calculator/price` | POST   | JSON  | Production cost, selling price, and expected profit |
+
+#### Calculate Product Price
+
+```http
+POST /api/calculator/price
+Content-Type: application/json
+```
+
+Request:
+
+```json
+{
+  "material_cost": 20.00,
+  "packaging_cost": 5.00,
+  "labor_cost": 10.00,
+  "quantity": 10,
+  "profit_margin": 30
+}
+```
+
+Response:
+
+```json
+{
+  "total_production_cost": 35.00,
+  "cost_per_unit": 3.50,
+  "suggested_price_per_unit": 5.00,
+  "expected_profit_per_unit": 1.50
+}
+```
+
+---
+
+### 4.8 Profile and Location Endpoints
+
+| Endpoint                | Method | Input          | Output           |
+| ----------------------- | ------ | -------------- | ---------------- |
+| `/api/profile`          | GET    | Authentication | User profile     |
+| `/api/profile`          | PUT    | JSON           | Updated profile  |
+| `/api/profile/location` | PUT    | JSON           | Updated location |
+
+#### Update Business Location
+
+```http
+PUT /api/profile/location
+Content-Type: application/json
+```
+
+Request:
+
+```json
+{
+  "latitude": 24.7136,
+  "longitude": 46.6753,
+  "address": "Riyadh, Saudi Arabia"
+}
+```
+
+Response:
+
+```json
+{
+  "message": "Location updated successfully",
+  "location": {
+    "latitude": 24.7136,
+    "longitude": 46.6753,
+    "address": "Riyadh, Saudi Arabia"
+  }
+}
+```
+
+The frontend will use **Google Maps** to allow the Merchant to select the location interactively. The selected coordinates will then be sent to the Maksab backend.
+
+---
+
+### 4.9 API Design Principles
+
+The Maksab API will follow common REST API practices:
+
+* Use HTTP methods according to the operation being performed.
+* Use clear and resource-based endpoint names.
+* Use JSON for API requests and responses.
+* Use HTTP status codes to indicate the result of requests.
+* Validate user input on the backend.
+* Protect authenticated endpoints from unauthorized access.
+* Avoid storing sensitive payment information in the application database.
+* Keep external API credentials on the backend and never expose them directly to the frontend.
+
+### 4.10 API Summary
+
+The internal API provides the main connection between the Maksab frontend and backend. It supports the core MVP functionality including:
+
+**Authentication → Products → Cart → Orders → Payment → Pricing Calculator → Profile & Location**
+
+External services such as **Google Maps** and **Moyasar** are integrated through the backend where appropriate.
 
 
