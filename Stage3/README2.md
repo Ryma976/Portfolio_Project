@@ -138,4 +138,150 @@ flowchart TB
 * **Nginx Reverse Proxy:** Manages SSL termination, serves compiled frontend assets, and acts as a gateway proxy to protect Flask application processes.
 
 ---
+## 3. High-Level Sequence Diagrams
+
+### Purpose
+
+The sequence diagrams below show how the main components of Maksab interact during key MVP use cases.
+
+---
+
+### 3.1 User Registration and Login
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Frontend
+    participant Backend
+    participant Database
+
+    User->>Frontend: Enter registration details
+    Frontend->>Backend: Submit registration request
+    Backend->>Database: Check user information
+    Database-->>Backend: Return user status
+
+    alt New user
+        Backend->>Database: Create user account
+        Database-->>Backend: Account created
+        Backend-->>Frontend: Registration successful
+        Frontend-->>User: Show success message
+    else Existing user
+        Backend-->>Frontend: Registration failed
+        Frontend-->>User: Show error message
+    end
+
+    User->>Frontend: Enter login credentials
+    Frontend->>Backend: Send login request
+    Backend->>Database: Verify credentials
+    Database-->>Backend: Return user information
+
+    alt Valid credentials
+        Backend-->>Frontend: Authentication successful
+        Frontend-->>User: Open dashboard
+    else Invalid credentials
+        Backend-->>Frontend: Authentication failed
+        Frontend-->>User: Show error message
+    end
+```
+
+---
+
+### 3.2 Product Browsing, Cart, Checkout and Payment
+
+```mermaid
+sequenceDiagram
+    actor Merchant
+    participant Frontend
+    participant Backend
+    participant Database
+    participant Moyasar
+
+    Merchant->>Frontend: Search for products
+    Frontend->>Backend: Send search request
+    Backend->>Database: Query products
+    Database-->>Backend: Return matching products
+    Backend-->>Frontend: Return product results
+    Frontend-->>Merchant: Display products
+
+    Merchant->>Frontend: Select a product
+    Frontend->>Backend: Request product details
+    Backend->>Database: Retrieve product details
+    Database-->>Backend: Return product details
+    Backend-->>Frontend: Return product information
+    Frontend-->>Merchant: Display product page
+
+    Merchant->>Frontend: Add product to cart
+    Frontend->>Backend: Add item and quantity
+    Backend->>Database: Save cart item
+    Database-->>Backend: Cart updated
+    Backend-->>Frontend: Return updated cart
+    Frontend-->>Merchant: Display updated cart total
+
+    Merchant->>Frontend: Proceed to checkout
+    Frontend->>Backend: Create order
+    Backend->>Database: Save order
+    Database-->>Backend: Order created
+
+    Merchant->>Frontend: Confirm payment
+    Frontend->>Backend: Submit payment request
+    Backend->>Moyasar: Process payment
+    Moyasar-->>Backend: Return payment result
+
+    alt Payment successful
+        Backend->>Database: Update order as paid
+        Database-->>Backend: Order updated
+        Backend-->>Frontend: Payment successful
+        Frontend-->>Merchant: Show order confirmation
+    else Payment failed
+        Backend-->>Frontend: Payment failed
+        Frontend-->>Merchant: Show payment error
+    end
+```
+
+---
+
+### 3.3 Production Cost and Pricing Calculator
+
+```mermaid
+sequenceDiagram
+    actor Merchant
+    participant Frontend
+    participant Backend
+
+    Merchant->>Frontend: Open pricing calculator
+    Frontend-->>Merchant: Display calculator
+
+    Merchant->>Frontend: Enter material costs
+    Merchant->>Frontend: Enter packaging costs
+    Merchant->>Frontend: Enter labor costs
+    Merchant->>Frontend: Enter target profit margin
+
+    Frontend->>Backend: Submit calculation inputs
+    Backend->>Backend: Calculate production cost
+    Backend->>Backend: Calculate cost per unit
+    Backend->>Backend: Calculate suggested selling price
+    Backend->>Backend: Calculate expected profit
+
+    Backend-->>Frontend: Return calculation results
+    Frontend-->>Merchant: Display production cost
+    Frontend-->>Merchant: Display suggested selling price
+    Frontend-->>Merchant: Display expected profit
+```
+
+---
+
+### 3.4 Main Components
+
+| Component           | Responsibility                                                             |
+| ------------------- | -------------------------------------------------------------------------- |
+| Merchant / Supplier | Interacts with the Maksab platform                                         |
+| Frontend            | Provides the user interface and sends requests to the backend              |
+| Backend             | Handles business logic, authentication, products, orders, and calculations |
+| Database            | Stores users, products, carts, orders, and related data                    |
+| Moyasar             | Processes online payments                                                  |
+| Google Maps         | Provides location services for delivery addresses                          |
+
+These diagrams provide a high-level view of the main interactions within the Maksab MVP.
+
+
 
