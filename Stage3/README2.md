@@ -54,7 +54,7 @@
 | **Won't Have** | Admin Dashboard, Saved Recipe Database, Live Driver GPS Tracking | **Explicitly Out of MVP Scope:** Excluded to focus development efforts on B2B core flow, reduce complexity, and meet project deadlines. |
 
 # Task 1:  Design System Architecture
-*React.js frontend communicates with the Python Flask backend through REST APIs (using JSON format). The backend handles the core business logic, including the pricing calculator engine and order processing, while communicating with PostgreSQL via SQL/ORM for data management (Users, Businesses, Supplies, Costs, and Orders). Additionally, the system seamlessly integrates with external services, including Moyasar/Tap API for payment processing, Google Maps API for location-based logistics, and Supplier Services for raw material requests.*
+*React.js frontend communicates with the Python Flask backend through REST APIs (using JSON format). The backend handles the core business logic, including the pricing calculator engine and order processing, while communicating with PostgreSQL via SQL/ORM for data management (Users, Products, Carts, Orders, and Payments). Additionally, the system seamlessly integrates with external services, including Moyasar/Tap API for payment processing and Google Maps API for location-based logistics.*
 
 ##  System Architecture
 ```mermaid
@@ -67,7 +67,7 @@ flowchart TB
     B[" Python Flask Backend<br/>REST API & Business Logic"]
 
     %% Database
-    C[(" PostgreSQL Database<br/>Users • Businesses • Products • Orders")]
+    C[(" PostgreSQL Database<br/>Users • Products • Carts • Orders • Payments")]
 
     %% External Services
     D[" Moyasar / Tap API<br/>Payment Processing"]
@@ -97,9 +97,9 @@ flowchart TB
     B[" Python Flask Backend<br/>REST API & Business Logic"]
 
     C[(" PostgreSQL Database<br/>
-    Users • Home Businesses<br/>
-    Materials • Suppliers<br/>
-    Costs • Orders")]
+    Users (Merchants & Suppliers)<br/>
+    Products • Categories • Carts<br/>
+    Orders • Payments • Messages")]
 
     D[" Supplier Services<br/>Supplier & Material Data"]
 
@@ -471,10 +471,10 @@ Response:
         "product_id": 12,
         "quantity": 200,
         "unit_price": 45.00,
-        "subtotal": 90.00
+        "subtotal": 9000.00
       }
     ],
-    "total": 90.00
+    "total": 9000.00
   }
 }
 ```
@@ -485,12 +485,14 @@ Response:
 
 | Endpoint                   | Method | Input          | Output         |
 | -------------------------- | ------ | -------------- | -------------- |
-| `/api/orders`              | POST   | JSON           | Created order  |
+| `/api/orders`              | POST   | JSON           | Created orders |
 | `/api/orders`              | GET    | Authentication | Order history  |
 | `/api/orders/{id}`         | GET    | Order ID       | Order details  |
 | `/api/orders/{id}/payment` | POST   | JSON           | Payment result |
 
 #### Create Order
+
+Each order belongs to a single supplier. If the cart contains products from several suppliers, the backend creates one order per supplier and returns them all in the `orders` list.
 
 ```http
 POST /api/orders
@@ -512,11 +514,14 @@ Response:
 ```json
 {
   "message": "Order created successfully",
-  "order": {
-    "id": 101,
-    "status": "pending_payment",
-    "total": 90.00
-  }
+  "orders": [
+    {
+      "id": 101,
+      "supplier_id": 5,
+      "status": "pending_payment",
+      "total": 9000.00
+    }
+  ]
 }
 ```
 
@@ -586,6 +591,8 @@ Response:
   "expected_profit_per_unit": 1.50
 }
 ```
+
+`profit_margin` is the profit as a percentage of the **selling price**: `suggested_price = cost_per_unit / (1 - profit_margin / 100)`. The backend validates that `quantity > 0` and `0 <= profit_margin < 100`.
 
 ---
 
@@ -992,21 +999,24 @@ The main system components include:
 * Order Management
 * Pricing Calculator
 * Payment
+* Messaging
 
 The database uses related entities such as:
 
 * User
-* Profile
+* Category
 * Product
 * Cart
 * CartItem
 * Order
 * OrderItem
+* Payment
+* Message
 
+#### ER Diagram
 
-
+```mermaid
 erDiagram
-
     USER ||--o{ PRODUCT : "lists (supplier)"
     USER ||--o| CART : owns
     USER ||--o{ ORDER : "places (merchant)"
@@ -1102,8 +1112,148 @@ erDiagram
         text body
         datetime created_at
     }
+```
 
+### Back-end Classes
 
+Model classes (SQLAlchemy) represent database tables. Service classes hold business logic and wrap external APIs (Facade pattern).
+
+```mermaid
+classDiagram
+    class User {
+        +int id
+        +string email
+        +string role
+        +set_password(password)
+        +check_password(password) bool
+        +update_profile(data)
+        +update_location(lat, lng, address)
+    }
+    class Product {
+        +int id
+        +decimal price
+        +int moq
+        +string stock_status
+        +update_price(new_price)
+        +set_stock_status(status)
+        +meets_moq(quantity) bool
+    }
+    class Cart {
+        +int id
+        +add_item(product_id, quantity)
+        +update_item(item_id, quantity)
+        +remove_item(item_id)
+        +calculate_total() decimal
+        +group_by_supplier() dict
+    }
+    class CartItem {
+        +int quantity
+        +get_subtotal() decimal
+    }
+    class Order {
+        +int id
+        +decimal total
+        +string status
+        +calculate_total() decimal
+        +update_status(new_status)
+        +mark_as_paid()
+    }
+    class OrderItem {
+        +int quantity
+        +decimal unit_price
+        +get_subtotal() decimal
+    }
+    class Payment {
+        +string moyasar_payment_id
+        +string status
+        +mark_paid(moyasar_id)
+        +mark_failed()
+    }
+    class Category
+    class Message
+    class AuthService {
+        +register(data) User
+        +login(email, password) token
+    }
+    class OrderService {
+        +create_orders_from_cart(cart, delivery) list
+        +update_order_status(order_id, status)
+    }
+    class PaymentService {
+        +create_payment(order, method) Payment
+        +verify_payment(moyasar_id) bool
+    }
+    class PricingCalculator {
+        +calculate_total_cost(material, packaging, labor) decimal
+        +calculate_cost_per_unit(total, quantity) decimal
+        +suggest_price(cost_per_unit, margin) decimal
+        +calculate_profit(price, cost_per_unit) decimal
+    }
+
+    User "1" --> "*" Product : lists
+    User "1" --> "0..1" Cart : owns
+    User "1" --> "*" Order : places / fulfils
+    User "1" --> "*" Message : sends / receives
+    Category "1" --> "*" Product : classifies
+    Cart "1" *-- "*" CartItem : contains
+    Order "1" *-- "*" OrderItem : contains
+    Order "1" --> "*" Payment : paid by
+    Product "1" --> "*" CartItem : added as
+    Product "1" --> "*" OrderItem : ordered as
+    OrderService ..> Order : creates
+    PaymentService ..> Payment : creates
+    AuthService ..> User : uses
+```
+
+**Pricing formulas** (`profit_margin` is a percentage of the selling price; requires `quantity > 0` and `0 <= margin < 100`):
+
+```text
+total_cost      = material + packaging + labor
+cost_per_unit   = total_cost / quantity
+suggested_price = cost_per_unit / (1 - margin / 100)
+profit_per_unit = suggested_price - cost_per_unit
+```
+
+### Database Design Notes
+
+- **No separate Profile table:** business name, address, and coordinates are stored in `User`, since each user has exactly one business.
+- **One order per supplier:** a cart with products from several suppliers is split into one order per supplier, so each supplier sees only their own orders (US-06).
+- **Price snapshot:** `OrderItem.unit_price` keeps the price at purchase time, so receipts stay correct if prices change (US-15).
+- **Calculator is not stored:** it is standalone (Saved Recipe Database is Won't Have).
+- **No card data stored:** `Payment` keeps only the Moyasar payment ID and status.
+
+### Front-end Components (React)
+
+| Component | Purpose | API used | Stories |
+| :--- | :--- | :--- | :--- |
+| `AuthContext` | Holds logged-in user/token and protects routes by role | `POST /api/auth/login` | US-02 |
+| `RegisterForm`, `LoginForm` | Registration with role selection, and login | `/api/auth/*` | US-01, 02 |
+| `ProfileForm` | Edit business name, contact info, address | `GET/PUT /api/profile` | US-03 |
+| `SearchBar`, `FilterPanel` | Search by name; filter by category and price | `GET /api/products` | US-07, 08 |
+| `ProductList`, `ProductCard` | Display product summaries | none | US-07 |
+| `ProductDetailPage` | Full details, MOQ check, Add to Cart | `GET /api/products/{id}`, `POST /api/cart/items` | US-09 |
+| `CartPage` | Edit quantities, remove items, live total | `/api/cart`, `/api/cart/items/{id}` | US-10 |
+| `PricingCalculatorPage` | Cost inputs and margin; shows price and profit | `POST /api/calculator/price` | US-11, 12 |
+| `LocationPicker` | Google Map with draggable pin | Google Maps API, `PUT /api/profile/location` | US-13 |
+| `CheckoutPage`, `PaymentForm` | Order summary, location, Moyasar payment | `POST /api/orders`, `POST /api/orders/{id}/payment` | US-13, 14 |
+| `OrderHistoryPage` | Past orders and receipts | `GET /api/orders` | US-15 |
+| `ProductManager`, `ProductForm` | Supplier creates/edits products | `POST/PUT /api/products` | US-04, 05 |
+| `SupplierOrders` | Supplier views orders and updates status | `GET /api/orders` | US-06 |
+| `MessagesPage` | Merchant–Supplier chat (Could Have) | messaging endpoints | US-16 |
+
+All API calls go through one `api.js` service that attaches the token and handles errors. Merchant and Supplier pages are protected by role.
+
+### Database and Design Justifications
+
+| Decision | Justification |
+| :--- | :--- |
+| PostgreSQL (relational) | Data is highly relational, and orders/payments need ACID transactions. Foreign keys and CHECK constraints enforce integrity. |
+| Single `User` table with `role` | Merchants and Suppliers share login and profile fields, which keeps authentication simple. |
+| One order per supplier | Each supplier fulfils and tracks only their own items. |
+| `unit_price` snapshot | Order history and receipts stay accurate after price changes. |
+| Separate `Payment` table | An order can have several payment attempts (failed, then successful). |
+| Service classes (Facade) | Keeps Moyasar and calculator logic out of routes and easy to test with Pytest. |
+| Component-based React UI | Reusable components and no page reloads for cart, calculator, and map. |
 
 ### Sequence Diagrams
 
@@ -1229,5 +1379,3 @@ This Technical Documentation includes:
 * SCM Strategy
 * QA Strategy
 * Technical Justifications
-
-
