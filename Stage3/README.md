@@ -43,7 +43,7 @@ To maintain clarity across all user stories, the following terms represent the p
 ---
 
 
-## 🏛️ System Architecture
+##  System Architecture
 
 React.js frontend communicates with the Python Flask backend through REST APIs (using JSON format). The backend handles the core business logic, including the pricing calculator engine and order processing, while communicating with PostgreSQL via SQL/ORM for data management (Users, Businesses, Supplies, Costs, and Orders). Additionally, the system seamlessly integrates with external services, including Moyasar/Tap API for payment processing, Google Maps API for location-based logistics, and Supplier Services for raw material requests.
 
@@ -72,12 +72,7 @@ flowchart TB
     B -->|"Payment API"| D
     B -->|"Maps API"| E
 
-    %% Styling
-    classDef frontend fill:#E3F2FD,stroke:#1976D2,stroke-width:2px,color:#0D47A1
-    classDef backend fill:#E8F5E9,stroke:#388E3C,stroke-width:2px,color:#1B5E20
-    classDef database fill:#FFF3E0,stroke:#F57C00,stroke-width:2px,color:#E65100
-    classDef external fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px,color:#4A148C
-
+    
     class A frontend
     class B backend
     class C database
