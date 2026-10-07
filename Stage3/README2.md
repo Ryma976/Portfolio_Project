@@ -1003,6 +1003,106 @@ The database uses related entities such as:
 * Order
 * OrderItem
 
+
+erDiagram
+    USER ||--o{ PRODUCT : "lists (supplier)"
+    USER ||--o| CART : owns
+    USER ||--o{ ORDER : "places (merchant)"
+    USER ||--o{ ORDER : "fulfils (supplier)"
+    USER ||--o{ MESSAGE : sends
+    USER ||--o{ MESSAGE : receives
+
+    CATEGORY ||--o{ PRODUCT : classifies
+    PRODUCT ||--o{ CART_ITEM : "added as"
+    PRODUCT ||--o{ ORDER_ITEM : "ordered as"
+    PRODUCT ||--o{ MESSAGE : "about (optional)"
+
+    CART ||--|{ CART_ITEM : contains
+    ORDER ||--|{ ORDER_ITEM : contains
+    ORDER ||--o{ PAYMENT : "paid by"
+
+    USER {
+        int id PK
+        string name
+        string email UK
+        string password_hash
+        string phone
+        enum role "merchant | supplier"
+        string business_name
+        string address_text
+        decimal latitude
+        decimal longitude
+        datetime created_at
+    }
+    CATEGORY {
+        int id PK
+        string name
+        enum type "raw_material | packaging"
+    }
+    PRODUCT {
+        int id PK
+        int supplier_id FK
+        int category_id FK
+        string name
+        text description
+        decimal price
+        string unit
+        int moq
+        enum stock_status "in_stock | out_of_stock"
+        string image_url
+        datetime created_at
+        datetime updated_at
+    }
+    CART {
+        int id PK
+        int user_id FK
+        datetime updated_at
+    }
+    CART_ITEM {
+        int id PK
+        int cart_id FK
+        int product_id FK
+        int quantity
+    }
+    ORDER {
+        int id PK
+        int merchant_id FK
+        int supplier_id FK
+        string delivery_address
+        decimal latitude
+        decimal longitude
+        decimal total
+        enum status "pending_payment | paid | processing | shipped | delivered"
+        datetime created_at
+    }
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+    }
+    PAYMENT {
+        int id PK
+        int order_id FK
+        string method
+        decimal amount
+        string moyasar_payment_id
+        enum status "pending | paid | failed"
+        string receipt_url
+        datetime paid_at
+    }
+    MESSAGE {
+        int id PK
+        int sender_id FK
+        int receiver_id FK
+        int product_id FK "nullable"
+        text body
+        datetime created_at
+    }
+
+
+
 ### Sequence Diagrams
 
 Key system interactions were documented using sequence diagrams for:
