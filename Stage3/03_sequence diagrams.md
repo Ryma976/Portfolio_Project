@@ -94,23 +94,6 @@ sequenceDiagram
         Backend-->>Moyasar: 200 OK
         Frontend-->>Merchant: Show payment failed
     end
-sequenceDiagram
-    actor Merchant
-    participant Frontend
-    participant Backend
-
-    Merchant->>Frontend: Enter costs, quantity & profit %
-    Frontend->>Backend: POST /api/calculator/price
-
-    alt Valid numbers
-        Backend->>Backend: Calculate total & unit cost
-        Backend->>Backend: Calculate selling price & net profit
-        Backend-->>Frontend: Return calculated values
-        Frontend-->>Merchant: Show cost, price & profit
-    else Invalid numbers
-        Backend-->>Frontend: Error: Invalid input
-        Frontend-->>Merchant: Show input error
-    end
 
 ```
 ---
