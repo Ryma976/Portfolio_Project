@@ -1,93 +1,59 @@
-# System Architecture
+# 2. System Architecture
 
 ## Overview
 
-Maksab follows a **three-tier architecture**: a browser-based Single Page Application (SPA), a REST API backend, and a relational database. Two external services are integrated: **Moyasar** for payments and **Google Maps Platform** for location services. All communication between the front end and back end uses secure JSON over HTTPS.
+Maksab follows a **three-tier architecture**: a React single-page application (SPA), a Flask REST API backend, and a PostgreSQL database. **Nginx** sits in front as a reverse proxy. Two external services are integrated: **Moyasar** for payments and **Google Maps Platform** for location services. The Frontend and Backend communicate through secure JSON REST APIs.
 
 ## Architecture Diagram
 
 ```mermaid
 flowchart TB
-    User(["Merchant / Supplier"])
+    FE["React.js Frontend<br/>Merchant and Supplier UI"]
+    NGINX["Nginx Reverse Proxy<br/>SSL and static assets"]
+    BE["Python Flask Backend<br/>REST API and Business Logic<br/>(service layer: payment, location, pricing)"]
+    DB[("PostgreSQL Database<br/>Users, Products, Carts<br/>Checkouts, Orders, Payments")]
+    PAY["Moyasar API<br/>Payment Processing"]
+    MAPS["Google Maps API<br/>Interactive Location Map"]
 
-    subgraph Client["Presentation Tier: Browser"]
-        SPA["SPA<br/>HTML5, CSS3/Tailwind, ES6+ JS<br/>Axios for API calls"]
-    end
-
-    subgraph Server["Application Tier: Backend REST API"]
-        API["API Layer<br/>Routes + JWT Auth Middleware"]
-        Auth["Auth Module"]
-        Catalog["Catalog and Search Module"]
-        Orders["Cart and Orders Module"]
-        Calc["Pricing Calculator Module"]
-        Pay["Payment Module"]
-        Loc["Location Module"]
-    end
-
-    subgraph Data["Data Tier"]
-        DB[("MySQL Database")]
-        Files[("Image Storage<br/>product photos")]
-    end
-
-    subgraph External["External Services"]
-        Moyasar["Moyasar<br/>Payment Gateway"]
-        GMaps["Google Maps Platform<br/>Maps JS API, Distance"]
-    end
-
-    User --> SPA
-    SPA -->|"1. HTTPS REST requests (JSON + JWT)"| API
-    API -->|"2. JSON responses"| SPA
-
-    API --> Auth
-    API --> Catalog
-    API --> Orders
-    API --> Calc
-    API --> Pay
-    API --> Loc
-
-    Auth -->|"3. SQL: users"| DB
-    Catalog -->|"4. SQL: products"| DB
-    Orders -->|"5. SQL: carts, orders"| DB
-    Pay -->|"6. SQL: payments"| DB
-    Catalog -->|"7. save / read images"| Files
-
-    SPA -->|"8. load interactive map"| GMaps
-    Loc -->|"9. distance and delivery cost"| GMaps
-    Pay -->|"10. create payment"| Moyasar
-    Moyasar -.->|"11. webhook: payment status"| Pay
+    FE -->|"1. HTTPS"| NGINX
+    NGINX -->|"2. REST API / JSON (JWT)"| BE
+    BE -->|"3. SQL / SQLAlchemy ORM"| DB
+    BE -->|"4. Create and verify payment"| PAY
+    PAY -.->|"5. Webhook: payment status"| BE
+    FE -->|"6. Load interactive map"| MAPS
+    FE -->|"7. Card details to get token"| PAY
 ```
 
 ## Data Flow
 
 | # | From | To | Data |
 | :--- | :--- | :--- | :--- |
-| 1-2 | SPA | API Layer | Every action is a JSON REST request; the JWT token identifies the user and role. The API returns JSON. |
-| 3 | Auth Module | MySQL | Register and login: user records with hashed passwords. |
-| 4 | Catalog Module | MySQL | Suppliers create products; Merchants search and filter them. |
-| 5 | Orders Module | MySQL | Cart items, orders, and order status. |
-| 6 | Payment Module | MySQL | Payment records and transaction history. |
-| 7 | Catalog Module | Image Storage | Product photos uploaded by Suppliers. |
-| 8 | SPA | Google Maps | Merchant pins their location on the map (Riyadh only). |
-| 9 | Location Module | Google Maps | Distance between Merchant and Supplier for the delivery cost estimate. |
-| 10 | Payment Module | Moyasar | Order amount and payment request (sandbox mode in MVP). |
-| 11 | Moyasar | Payment Module | Webhook confirming payment success or failure. The order becomes "Paid" only after this. |
+| 1 | Frontend | Nginx | Every user action is an HTTPS request. Nginx also serves the compiled React files. |
+| 2 | Nginx | Flask Backend | JSON REST requests with a JWT token that identifies the user and role. The Backend returns JSON. |
+| 3 | Backend | PostgreSQL | Users, products, carts, checkouts, orders, and payments, accessed through the SQLAlchemy ORM. |
+| 4 | Backend | Moyasar | Create a payment for a checkout, then fetch it again to verify status and amount. |
+| 5 | Moyasar | Backend | Webhook (dashed arrow) notifying that a payment changed status. Orders become `paid` only after the Backend verifies it. |
+| 6 | Frontend | Google Maps | Interactive map where the Merchant pins the delivery location. |
+| 7 | Frontend | Moyasar | Card details go directly to Moyasar and return a token, so they never pass through our Backend. |
 
 ## Component Responsibilities
 
 | Component | Responsibility |
 | :--- | :--- |
-| **SPA** | UI for both roles, form validation, and API calls. |
-| **API Layer** | Routing, JWT verification, role-based access (Merchant vs Supplier). |
-| **Auth Module** | Registration, login/logout, password hashing. |
-| **Catalog Module** | Product CRUD, search, filters. |
-| **Orders Module** | Cart, checkout, order history, supplier order view. |
-| **Pricing Calculator Module** | Production cost and suggested price. Stateless: it needs no database, which makes it easy to unit test. |
-| **Payment Module** | Moyasar integration and webhook handling. |
-| **Location Module** | Riyadh boundary validation, distance, and delivery cost. |
+| **React Frontend (SPA)** | UI for both roles, form validation, and API calls through one Axios service that attaches the JWT. |
+| **Nginx** | SSL termination, serving compiled frontend assets, and acting as a gateway proxy in front of Flask. |
+| **Flask Backend** | Routing, JWT authentication, role and ownership checks, and business logic organized in model classes and service classes (Auth, Order, Payment, Location rules, Pricing Calculator). |
+| **PostgreSQL** | Relational storage with ACID transactions for users, orders, and payments. |
+| **Moyasar** | Online payments (sandbox mode in the MVP) and payment webhooks. |
+| **Google Maps** | Interactive map where the Merchant pins the delivery location. Maksab does not run delivery: Suppliers arrange delivery themselves. |
 
-## Key Design Notes
+## Architectural Decisions and Rationale
 
-- **Secrets stay on the server:** the Moyasar secret key is never exposed to the browser.
-- **Payment confirmation comes from the webhook,** not from the browser redirect, so users cannot fake a paid order.
-- **Modular monolith:** one deployable backend with separated modules. This fits a 4-person MVP and avoids the overhead of microservices.
+- **React (Single Page Application):** a smooth, responsive UI for interactive modules such as the Smart Pricing Calculator, the live cart, and the location picker, without full-page reloads.
+- **Flask RESTful API (Python):** lightweight and modular. It makes it easy to isolate external integrations behind clean service classes (Facade pattern), such as `PaymentService` for Moyasar. A `MapsService` holds the location rules (Riyadh boundary check).
+- **PostgreSQL with SQLAlchemy ORM:** structured relational storage with strong ACID compliance, which keeps users, orders, order items, and payments consistent.
+- **Nginx reverse proxy:** manages SSL, serves the compiled frontend, and protects the Flask application processes.
+- **Modular monolith:** one deployable backend with separated modules, which fits a 4-person MVP better than microservices.
+- **Payment security:** card details go straight to Moyasar, and the Backend marks an order as paid only after verifying the payment with Moyasar. The browser redirect is never trusted.
+- **Secrets:** the Moyasar secret key and JWT secret stay on the Backend only.
 
