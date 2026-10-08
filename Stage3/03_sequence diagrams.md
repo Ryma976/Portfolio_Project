@@ -1,59 +1,74 @@
-# 2. System Architecture
+# 3. High-Level Sequence Diagrams
 
-## Overview
+## Purpose
 
-Maksab follows a **three-tier architecture**: a React single-page application (SPA), a Flask REST API backend, and a PostgreSQL database. **Nginx** sits in front as a reverse proxy. Two external services are integrated: **Moyasar** for payments and **Google Maps Platform** for location services. The Frontend and Backend communicate through secure JSON REST APIs.
+The sequence diagrams below show how the main components of Maksab (Frontend, Backend, Database, and external services) interact during key MVP use cases.
 
-## Architecture Diagram
+---
+
+## 3.1 Checkout and Payment Flow
 
 ```mermaid
-flowchart TB
-    FE["React.js Frontend<br/>Merchant and Supplier UI"]
-    NGINX["Nginx Reverse Proxy<br/>SSL and static assets"]
-    BE["Python Flask Backend<br/>REST API and Business Logic<br/>(service layer: payment, location, pricing)"]
-    DB[("PostgreSQL Database<br/>Users, Products, Carts<br/>Checkouts, Orders, Payments")]
-    PAY["Moyasar API<br/>Payment Processing"]
-    MAPS["Google Maps API<br/>Interactive Location Map"]
+sequenceDiagram
+    actor Merchant
+    participant Frontend
+    participant Backend
+    participant Maps as Google Maps
+    participant Database
+    participant Moyasar
 
-    FE -->|"1. HTTPS"| NGINX
-    NGINX -->|"2. REST API / JSON (JWT)"| BE
-    BE -->|"3. SQL / SQLAlchemy ORM"| DB
-    BE -->|"4. Create and verify payment"| PAY
-    PAY -.->|"5. Webhook: payment status"| BE
-    FE -->|"6. Load interactive map"| MAPS
-    FE -->|"7. Card details to get token"| PAY
+    Merchant->>Frontend: Pin delivery location on map
+    Frontend->>Maps: Load interactive map & get coordinates
+    Maps-->>Frontend: Return pin coordinates
+
+    Merchant->>Frontend: Click "Pay Now"
+    Frontend->>Backend: POST /api/checkouts (Location + Items)
+    Backend->>Backend: Validate coordinates within Riyadh boundary
+    Backend->>Database: Save Checkout & Order (Status: Pending)
+    Database-->>Backend: Return Checkout ID
+    Backend-->>Frontend: Return Checkout Summary
+
+    Merchant->>Frontend: Enter Card Details
+    Frontend->>Moyasar: Send card details directly for tokenization
+    Moyasar-->>Frontend: Return Payment Token
+    Frontend->>Backend: POST /api/payments (Token + Checkout ID)
+    Backend->>Moyasar: Create Payment Session
+    Moyasar-->>Backend: Return Bank Verification Redirect URL
+    Backend-->>Frontend: Redirect to Bank Page
+
+    Merchant->>Moyasar: Complete 3D Secure Bank Verification
+    Moyasar-->>Backend: Send Webhook Callback (Payment Event)
+    Backend->>Moyasar: Fetch Payment directly to verify status & amount
+
+    alt Payment Confirmed
+        Backend->>Database: Update Checkout & Orders status to "Paid"
+        Backend->>Database: Clear Active Cart
+        Backend-->>Frontend: 200 OK (Payment Confirmed)
+        Frontend-->>Merchant: Show Order Confirmation Page
+    else Payment Failed
+        Backend->>Database: Update Payment status to "Failed"
+        Backend-->>Frontend: Payment Failed Error
+        Frontend-->>Merchant: Show Failure Message (Cart Retained)
+    end
+
 ```
+# 3.2 Pricing Calculator Flow
+```mermaid
+sequenceDiagram
+    actor Merchant
+    participant Frontend
+    participant Backend
 
-## Data Flow
-
-| # | From | To | Data |
-| :--- | :--- | :--- | :--- |
-| 1 | Frontend | Nginx | Every user action is an HTTPS request. Nginx also serves the compiled React files. |
-| 2 | Nginx | Flask Backend | JSON REST requests with a JWT token that identifies the user and role. The Backend returns JSON. |
-| 3 | Backend | PostgreSQL | Users, products, carts, checkouts, orders, and payments, accessed through the SQLAlchemy ORM. |
-| 4 | Backend | Moyasar | Create a payment for a checkout, then fetch it again to verify status and amount. |
-| 5 | Moyasar | Backend | Webhook (dashed arrow) notifying that a payment changed status. Orders become `paid` only after the Backend verifies it. |
-| 6 | Frontend | Google Maps | Interactive map where the Merchant pins the delivery location. |
-| 7 | Frontend | Moyasar | Card details go directly to Moyasar and return a token, so they never pass through our Backend. |
-
-## Component Responsibilities
-
-| Component | Responsibility |
-| :--- | :--- |
-| **React Frontend (SPA)** | UI for both roles, form validation, and API calls through one Axios service that attaches the JWT. |
-| **Nginx** | SSL termination, serving compiled frontend assets, and acting as a gateway proxy in front of Flask. |
-| **Flask Backend** | Routing, JWT authentication, role and ownership checks, and business logic organized in model classes and service classes (Auth, Order, Payment, Location rules, Pricing Calculator). |
-| **PostgreSQL** | Relational storage with ACID transactions for users, orders, and payments. |
-| **Moyasar** | Online payments (sandbox mode in the MVP) and payment webhooks. |
-| **Google Maps** | Interactive map where the Merchant pins the delivery location. Maksab does not run delivery: Suppliers arrange delivery themselves. |
-
-## Architectural Decisions and Rationale
-
-- **React (Single Page Application):** a smooth, responsive UI for interactive modules such as the Smart Pricing Calculator, the live cart, and the location picker, without full-page reloads.
-- **Flask RESTful API (Python):** lightweight and modular. It makes it easy to isolate external integrations behind clean service classes (Facade pattern), such as `PaymentService` for Moyasar. A `MapsService` holds the location rules (Riyadh boundary check).
-- **PostgreSQL with SQLAlchemy ORM:** structured relational storage with strong ACID compliance, which keeps users, orders, order items, and payments consistent.
-- **Nginx reverse proxy:** manages SSL, serves the compiled frontend, and protects the Flask application processes.
-- **Modular monolith:** one deployable backend with separated modules, which fits a 4-person MVP better than microservices.
-- **Payment security:** card details go straight to Moyasar, and the Backend marks an order as paid only after verifying the payment with Moyasar. The browser redirect is never trusted.
-- **Secrets:** the Moyasar secret key and JWT secret stay on the Backend only.
-
+    Merchant->>Frontend: Enter material, packaging, labor costs & margin
+    Frontend->>Backend: POST /api/calculator/price
+    
+    alt Inputs Valid
+        Backend->>Backend: Calculate unit production cost
+        Backend->>Backend: Calculate suggested price & net profit
+        Backend-->>Frontend: Return calculated values
+        Frontend-->>Merchant: Display unit cost, suggested price & profit
+    else Invalid Inputs
+        Backend-->>Frontend: 400 Bad Request (Validation Error)
+        Frontend-->>Merchant: Display clear validation error message
+    end
+```
