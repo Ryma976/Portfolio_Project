@@ -144,17 +144,20 @@ This document is aligned with the four MVP modules defined in Stage 2: **Smart P
 
 ## Mockups (Main Screens)
 
+The linked screenshots are preview captures from the [published Figma prototype](https://prong-high-33840094.figma.site/), not direct Figma deep links to individual screens.
+
 | # | Screen | Covers | Link / Image |
 | :--- | :--- | :--- | :--- |
-| 1 | Login / Register (role selection) | US-01, 02 | `images/mockups/01_auth.png` |
-| 2 | Marketplace (search, filters, product list) | US-08, 09 | `images/mockups/02_marketplace.png` |
-| 3 | Product details | US-10 | `images/mockups/03_product.png` |
-| 4 | Cart & Checkout (map + payment) | US-11, 14, 15 | `images/mockups/04_checkout.png` |
-| 5 | Smart Pricing Calculator | US-12, 13 | `images/mockups/05_calculator.png` |
-| 6 | Supplier dashboard (add product, incoming orders) | US-04, 06 | `images/mockups/06_supplier.png` |
-| 7 | Order history | US-16, 17 | `images/mockups/07_orders.png` |
+| 1 | Login / Register (role selection) | US-01, 02 | [Preview](images/mockups/01_auth_role.png) |
+| 2 | Marketplace (search, filters, product list) | US-08, 09 | [Preview](images/mockups/02_marketplace.png) |
+| 3 | Product details | US-10 | [Preview](images/mockups/03_product_details.png) |
+| 4 | Cart | US-11 | [Preview](images/mockups/04_cart.png) |
+| 5 | Checkout (map + payment) | US-14, 15 | [Preview](images/mockups/05_checkout_map_payment.png) |
+| 6 | Smart Pricing Calculator | US-12, 13 | [Preview](images/mockups/06_pricing_calculator.png) |
+| 7 | Supplier dashboard (add product, incoming orders) | US-04, 06 | [Preview](images/mockups/07_supplier_dashboard.png) |
+| 8 | Order history | US-16, 17 | [Preview](images/mockups/08_order_history.png) |
 
-Figma link: _add link here_
+Figma link: [Figma site](https://prong-high-33840094.figma.site/)
 
 ---
 
