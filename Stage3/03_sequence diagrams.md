@@ -46,6 +46,7 @@ sequenceDiagram
         Frontend-->>User: Show login error
     end
 ```
+---
 # 3.2 Use Case 2: Checkout and Payment Flow
 ```mermaid
 sequenceDiagram
@@ -110,7 +111,9 @@ sequenceDiagram
         Backend-->>Frontend: Error: Invalid input
         Frontend-->>Merchant: Show input error
     end
+
 ```
+---
 # 3.3 Use Case 3: Pricing Calculator
 ```mermaid
 sequenceDiagram
