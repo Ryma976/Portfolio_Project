@@ -16,7 +16,7 @@ A B2B marketplace and pricing calculator designed to connect suppliers with reta
 
 ## 📚 Technical Documentation
 The complete technical documentation is available in the [`docs/`](./docs/) folder:
-- [Section 0: Scope & User Stories](./docs/01_user_stories)
+- [Section 0: Scope & User Stories](./docs/00_user_stories.md)
 - [Section 1: System Architecture](./docs/01_arch.md)
 - [Section 2: Database Design](./docs/02_db.md)
 - [Section 3: Sequence Diagrams](./docs/03_sequence.md)
