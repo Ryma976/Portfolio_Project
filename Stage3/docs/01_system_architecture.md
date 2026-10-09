@@ -1,27 +1,29 @@
-##  System Architecture
+# 1. System Architecture
 
-React.js frontend communicates with the Python Flask backend through REST APIs (using JSON format). The backend handles the core business logic, including the pricing calculator engine and order processing, while communicating with PostgreSQL via SQL/ORM for data management (Users, Businesses, Supplies, Costs, and Orders). Additionally, the system seamlessly integrates with external services, including Moyasar/Tap API for payment processing, Google Maps API for location-based logistics, and Supplier Services for raw material requests.
+## Architecture Overview
+Maksab platform uses a **Three-Tier Architecture**:
 
-##  System Architecture
+* **Frontend:** Built with React.js (Single Page Application). It gives a fast UI for Merchants and Suppliers.
+* **Backend:** Built with Python Flask. It handles the REST APIs, business logic, JWT authentication, and user roles.
+* **Database:** PostgreSQL with SQLAlchemy ORM to store users, products, orders, and checkouts safely.
+* **Proxy Server:** Nginx sits in front of Flask to handle HTTPS and reverse proxy.
 
-```mermaid
-flowchart TB
-    FE["React.js Frontend<br/>Merchant and Supplier UI"]
-    NGINX["Nginx Reverse Proxy<br/>SSL and static assets"]
-    BE["Python Flask Backend<br/>REST API and Business Logic<br/>(service layer: payment, maps)"]
-    DB[("PostgreSQL Database<br/>Users, Products<br/>Carts, Orders, Payments")]
-    PAY["Moyasar API<br/>Payment Processing"]
-    MAPS["Google Maps API<br/>Location and Distance"]
+---
 
-    FE -->|"HTTPS"| NGINX
-    NGINX -->|"REST API / JSON (JWT)"| BE
-    BE -->|"SQL / SQLAlchemy ORM"| DB
-    BE -->|"Create payment"| PAY
-    PAY -.->|"Webhook: payment status"| BE
-    BE -->|"Distance and delivery cost"| MAPS
-    FE -->|"Load interactive map"| MAPS
-```
+## Technical Choices
 
- 
+* **React.js:** Good for interactive components like the pricing calculator and real-time cart.
+* **Python Flask:** Lightweight and simple framework to build REST APIs quickly.
+* **PostgreSQL:** Reliable relational database for financial transactions and order records.
+* **Google Maps API:** Used by Merchants to pin their delivery location on the map.
+* **Moyasar API:** Used for Saudi local payments (Mada and Visa).
 
-```
+---
+
+## Data Flow Steps
+
+1. **User Action:** The user performs an action on the React UI (e.g., login or checkout).
+2. **HTTP Request:** React sends a REST API request (JSON payload + JWT token) to Flask via Nginx.
+3. **Logic Processing:** Flask verifies the user role, checks validation rules (e.g., location inside Riyadh), and handles business logic.
+4. **Database Operations:** Flask queries or saves data into PostgreSQL using SQLAlchemy ORM.
+5. **Response:** Backend returns a JSON response to update the React interface.
