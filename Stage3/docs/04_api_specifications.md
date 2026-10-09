@@ -45,3 +45,24 @@ All requests and responses use standard JSON format. Protected endpoints require
   "quantity": 10,
   "profit_margin": 30
 }
+```
+ ##
+ Response (200 OK):
+```json
+{
+  "total_production_cost": 35.0,
+  "cost_per_unit": 3.5,
+  "suggested_price_per_unit": 5.0,
+  "expected_profit_per_unit": 1.5
+}
+```
+## Response Status Codes
+**200 OK: Request succeeded.
+
+**201 Created: New item successfully created.
+
+**400 Bad Request: Invalid or missing input data.
+
+**401 Unauthorized: Missing or expired JWT token.
+
+**404 Not Found: Requested resource does not exist.
