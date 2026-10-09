@@ -57,12 +57,12 @@ All requests and responses use standard JSON format. Protected endpoints require
 }
 ```
 ## Response Status Codes
-**200 OK: Request succeeded.
+* **200 OK: Request succeeded.
 
-**201 Created: New item successfully created.
+* **201 Created: New item successfully created.
 
-**400 Bad Request: Invalid or missing input data.
+* **400 Bad Request: Invalid or missing input data.
 
-**401 Unauthorized: Missing or expired JWT token.
+* **401 Unauthorized: Missing or expired JWT token.
 
-**404 Not Found: Requested resource does not exist.
+* **404 Not Found: Requested resource does not exist.
