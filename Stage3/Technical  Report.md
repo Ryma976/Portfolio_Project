@@ -33,11 +33,11 @@
 
 
 ## 6. SCM and QA Strategies
-```
 
 
 
----
+
+
 
 # Final Technical Documentation Summary
 
