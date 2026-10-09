@@ -46,7 +46,7 @@ A separate branch is created when starting work on a part of the project, so as 
 **Purpose:**
  An exceptional branch we use only in case of an emergency.
 
-### 5.1 Pull Requests & Code Review
+## 5.1 Pull Requests & Code Review
 
 Steps to follow if a member has completed a specific feature and wants to add it to the project:
 
@@ -56,7 +56,7 @@ Steps to follow if a member has completed a specific feature and wants to add it
 4. **Integration and cleaning:** After approval, the work is merged into `development` and the temporary branch is deleted to keep it clean.
 5. **Uploading to the final version (`main`):** Uploading from `development` to `main` is only for complete versions and requires approval from the team leaders.
 
-### 5.2 Quality Assurance Strategy
+## 5.2 Quality Assurance Strategy
 How can we make sure that our website is working correctly and without errors before we display it?
 
 
@@ -77,7 +77,7 @@ How can we make sure that our website is working correctly and without errors be
 -  The calculator and the effect of correct and incorrect numbers on it.
 -  Adding products to the cart and making a mock checkout (Moyasar Sandbox).
 
- ### 5.3 Deployment Pipeline
+ ## 5.3 Deployment Pipeline
  How does the code transfer from team members' devices until it becomes a working website on the internet?
 
 **We have three environments:**
