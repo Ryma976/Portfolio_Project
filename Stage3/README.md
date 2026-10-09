@@ -15,13 +15,13 @@ A B2B marketplace and pricing calculator designed to connect suppliers with reta
 - **Integrations:** Moyasar Payment Gateway, Google Maps API
 
 ## 📚 Technical Documentation
-The full documentation is compiled in the [`TECHNICAL_REPORT.md`](./TECHNICAL_REPORT.md) file.
+The complete technical documentation is compiled in [`TECHNICAL_REPORT.md`](./TECHNICAL_REPORT.md).
 
 You can also view the individual section files in the [`docs/`](./docs/) directory:
 - [Section 0: Scope & User Stories](./docs/00_user_stories.md)
 - [Section 1: System Architecture](./docs/01_system_architecture.md)
 - [Section 2: Database Design](./docs/02_database_design.md)
--[Section 3: Sequence Diagrams](./docs/03_sequence.md)
+- [Section 3: Sequence Diagrams](./docs/03_sequence_diagrams.md)
 - [Section 4: API Specifications](./docs/04_api_specifications.md)
 - [Section 5: SCM and QA Strategies](./docs/05_scm_qa.md)
 
