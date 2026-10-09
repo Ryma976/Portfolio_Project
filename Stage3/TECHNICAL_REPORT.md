@@ -123,7 +123,15 @@ How can we make sure that our website is working correctly and without errors be
  - **Automated Scanning (CI - GitHub Actions):** We note that as soon as a member uploads their work to GitHub, GitHub automatically checks the code and runs tests, and if everything comes out fine, it allows us to merge it.
  
 
+## Technical Justifications
 
+Here are the main reasons behind our technology choices:
+
+- **React:** Chosen for the frontend due to its component-based structure, which allows us to reuse code and build interactive screens like the pricing calculator and shopping cart easily.
+- **Flask & Python:** Flask is a lightweight and simple framework for creating REST APIs, while Python provides clear syntax for writing backend logic and pricing formulas.
+- **PostgreSQL:** Selected as our relational database to reliably store structured data, such as users, supplier products, and orders.
+- **Moyasar:** Integrated for payments because it supports local payment methods (Mada and Apple Pay) and offers a simple sandbox mode for testing.
+- **Nginx & Gunicorn:** Nginx serves as a web server for static frontend files and a reverse proxy, while Gunicorn runs the Flask backend efficiently.
 
 
 
