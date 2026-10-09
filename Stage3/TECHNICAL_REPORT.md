@@ -7,33 +7,33 @@
 
 ---
 
-## 1. User Stories and Prioritization (MoSCoW)
+## 0. User Stories and Prioritization (MoSCoW)
 ---
 
 
-## 2. System Architecture
----
-
-
-
-## 3. Database Design
----
-
-
-## 4. Sequence Diagrams
+## 1. System Architecture
 ---
 
 
 
+## 2. Database Design
+---
 
 
-## 5. API Specifications
+## 3. Sequence Diagrams
 ---
 
 
 
-## 6. SCM and QA Strategies
-# 5. SCM and QA Strategies
+
+
+## 4. API Specifications
+---
+
+
+
+
+## 5. SCM and QA Strategies
 
 ## 5.0 Source Control Management (SCM)
 
