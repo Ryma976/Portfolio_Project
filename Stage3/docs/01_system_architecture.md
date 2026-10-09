@@ -27,39 +27,47 @@ Maksab platform uses a **Three-Tier Architecture**:
 3. **Logic Processing:** Flask verifies the user role, checks validation rules (e.g., location inside Riyadh), and handles business logic.
 4. **Database Operations:** Flask queries or saves data into PostgreSQL using SQLAlchemy ORM.
 5. **Response:** Backend returns a JSON response to update the React interface.
+# 1. System Architecture
+
+## Overview
+Maksab uses a **Three-Tier Architecture** to separate the user interface, backend processing, and data storage. This setup keeps the application organized and easy to maintain.
+
+---
+
+## 1.1 High-Level Architecture Diagram
+
 ```mermaid
 graph TD
-    subgraph Tier1["1. Presentation Tier (Frontend)"]
-        ReactApp["React Single-Page Application (SPA)<br/>Merchant & Supplier UI"]
+    subgraph Frontend["1. Presentation Tier"]
+        ReactApp["React.js SPA<br/>(Merchant & Supplier UI)"]
     end
 
-    subgraph Tier2["2. Logic Tier (Backend)"]
-        Nginx["Nginx Reverse Proxy<br/>(SSL Termination)"]
+    subgraph Backend["2. Logic Tier"]
+        Nginx["Nginx Reverse Proxy"]
         
-        subgraph FlaskApp["Python Flask REST API"]
-            Auth["JWT Auth"]
-            Products["Products Service"]
-            Cart["Cart / Order Service"]
-            Calc["Calculator Service"]
-            Payment["Payment Service"]
+        subgraph Flask["Python Flask API"]
+            AuthService["JWT Auth Module"]
+            ProductService["Products Module"]
+            CartService["Cart & Order Module"]
+            CalcService["Pricing Calculator Module"]
+            PaymentService["Payment Module"]
         end
     end
 
     subgraph External["External Services"]
-        GMaps["Google Maps API<br/>(Riyadh Boundary Check)"]
-        Moyasar["Moyasar API<br/>(Payment Processing & Webhook)"]
+        GoogleMaps["Google Maps API"]
+        Moyasar["Moyasar Payment API"]
     end
 
-    subgraph Tier3["3. Data Tier (Persistence)"]
-        Postgres[(PostgreSQL Database<br/>Users, Products, Carts,<br/>Checkouts, Orders, Payments)]
+    subgraph Database["3. Data Tier"]
+        Postgres[(PostgreSQL Database)]
     end
 
-    %% Flow Connections
-    ReactApp -->|HTTPS / JSON| Nginx
-    Nginx -->|REST API Request| FlaskApp
+    %% Data Flow
+    ReactApp -->|HTTPS / JSON Requests| Nginx
+    Nginx -->|Forward Requests| Flask
     
-    FlaskApp -->|3a. Location Services| GMaps
-    FlaskApp -->|3b. Process Payment / Webhook| Moyasar
+    Flask -->|Validate Riyadh Boundary| GoogleMaps
+    Flask -->|Process Payment & Webhook| Moyasar
     
-    FlaskApp <-->|4. CRUD Operations / ORM| Postgres
-```
+    Flask <-->|Read / Write Data (SQLAlchemy)| Postgres
