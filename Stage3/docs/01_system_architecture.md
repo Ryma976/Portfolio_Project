@@ -78,3 +78,21 @@ graph TD
     
     Flask <-->|Read and Write Data via SQLAlchemy| Postgres
 ```
+## 1.2 System Components
+
+* **Frontend (React.js):** A Single-Page Application (SPA) used by Merchants and Suppliers to browse products, manage carts, use the pricing calculator, and view orders.
+* **Backend (Python Flask & Nginx):** Handles API requests, role authentication (JWT), pricing calculations, and checkout validation. Nginx acts as a reverse proxy to handle incoming HTTP/HTTPS traffic.
+* **Database (PostgreSQL):** Stores relational data including users, products, active carts, checkouts, orders, and payment statuses.
+* **External Services:**
+  * **Google Maps API:** Allows merchants to pin their delivery address and checks if the location is within Riyadh boundaries.
+  * **Moyasar API:** Handles online payments and sends status updates back to the backend via webhooks.
+
+---
+
+## 1.3 Data Flow Steps
+
+1. **User Request:** The merchant or supplier interacts with the React interface (e.g., login, add item to cart, or enter cost values in the calculator).
+2. **API Communication:** React sends an HTTP request with a JSON payload (and a JWT token if authenticated) to Nginx, which routes it to Flask.
+3. **Business Logic Execution:** Flask validates the request data, checks permissions, and performs required operations (e.g., calculating unit production costs or validating checkout coordinates).
+4. **Database Query:** Flask interacts with PostgreSQL using SQLAlchemy ORM to fetch or update records.
+5. **JSON Response:** Flask returns the JSON result back to React, which dynamically updates the user's screen.
