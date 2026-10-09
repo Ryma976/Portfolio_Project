@@ -20,7 +20,7 @@ The full documentation is compiled in the [`TECHNICAL_REPORT.md`](./TECHNICAL_RE
 You can also view the individual section files in the [`docs/`](./docs/) directory:
 - [Section 0: Scope & User Stories](./docs/00_user_stories.md)
 - [Section 1: System Architecture](./docs/01_system_architecture.md)
-- [Section 2: Database Design](./docs/02_db.md)
+- [Section 2: Database Design](./docs/02_database_design.md)
 - [Section 3: Sequence Diagrams](./docs/03_sequence.md)
 - [Section 4: API Specifications](./docs/04_api.md)
 - [Section 5: SCM and QA Strategies](./docs/05_scm_qa.md)
