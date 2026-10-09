@@ -45,8 +45,27 @@ Maksab uses a standard **Three-Tier Architecture** to separate the presentation 
 ## 3. Sequence Diagrams
 ---
 
+This section shows sequence diagrams for 3 key use cases in the Maksab platform.
 
+---
 
+### 3.1 Use Case 1: User Registration and Login
+
+**Description:** This use case is similar to that of a new user with an account on the Maksab platform and their first session the user must first complete the registraton form and select merchant role this user interface send the data to the backend which check the database to ensure the email addres is not already in use if it is user receive an error message the backend on the other hand record the password and stores the account then when the user start the correspond input is verified using the recorded hash and if possible jwt code is generated which the backend stores and sends with each final order We never compar our plan to the script plan because it doesnot expose the entire databas
+
+---
+
+### 3.2 Use Case 2: Checkout and Payment Flow
+
+**Description:** this application explains how sellers process purchas in hopping cart first they enter the delivery addres found on the card and click the checkout button then they verify that the postal code is in riyadh and scan the product in the cart according to the seller they create payment form and enter the details of the paid order for each busine this information is sent directly from the browser to Myasar then forwarded to our payment server the user interface then redirects it to the payment server to create recipient once the bank transfer is complete the seller contacts their bank for confirmation Myasar notifi the payment server via web link that the payment has not been received before check its status myasar then verifies the payment If the payment is confirm all orders are considered paid the cart status changes to fail and the remain balance is deducted the seller is then notified that the payment has not been processed
+
+---
+
+### 3.3 Use Case 3: Pricing Calculator
+
+**Description:** this use case shows how merchant estimate the selle price of product the Merchant enter the material packag and labor cost the number of units produc and the desire profit margin the backend first validat the number and if they are invalid it return an error that the frontend display otherwise it calculat the cost per unit the suggest sell price and the profit per unit then return them to be shown on the screen nothing is save since the calculator is stateles
+
+---
 
 
 # 4. API Specifications
