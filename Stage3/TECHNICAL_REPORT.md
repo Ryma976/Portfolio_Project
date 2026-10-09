@@ -41,6 +41,223 @@ Maksab uses a standard **Three-Tier Architecture** to separate the presentation 
 ## 2. Database Design
 ---
 
+### ER Diagram
+
+```mermaid
+erDiagram
+    USERS ||--o{ PRODUCTS : "lists (supplier)"
+    USERS ||--o| CARTS : owns
+    USERS ||--o{ CHECKOUTS : "makes (merchant)"
+    USERS ||--o{ ORDERS : "places (merchant)"
+    USERS ||--o{ ORDERS : "fulfils (supplier)"
+    USERS ||--o{ MESSAGES : sends
+    USERS ||--o{ MESSAGES : receives
+
+    CATEGORIES ||--o{ PRODUCTS : classifies
+    PRODUCTS ||--o{ CART_ITEMS : "added as"
+    PRODUCTS ||--o{ ORDER_ITEMS : "ordered as"
+    PRODUCTS ||--o{ MESSAGES : "about (optional)"
+
+    CARTS ||--o{ CART_ITEMS : contains
+    CHECKOUTS ||--|{ ORDERS : "splits into"
+    CHECKOUTS ||--o{ PAYMENTS : "paid by"
+    ORDERS ||--|{ ORDER_ITEMS : contains
+
+    USERS {
+        int id PK
+        string name
+        string email UK
+        string password_hash
+        string phone
+        enum role "merchant | supplier"
+        string business_name
+        string address_text
+        decimal latitude "nullable"
+        decimal longitude "nullable"
+        datetime created_at
+    }
+    CATEGORIES {
+        int id PK
+        string name
+        enum type "raw_material | packaging"
+    }
+    PRODUCTS {
+        int id PK
+        int supplier_id FK
+        int category_id FK
+        string name
+        text description
+        decimal price
+        string unit
+        int moq
+        enum stock_status "in_stock | out_of_stock"
+        string image_url
+        datetime created_at
+        datetime updated_at
+    }
+    CARTS {
+        int id PK
+        int user_id FK, UK
+        datetime updated_at
+    }
+    CART_ITEMS {
+        int id PK
+        int cart_id FK
+        int product_id FK
+        int quantity
+    }
+    CHECKOUTS {
+        int id PK
+        int merchant_id FK
+        string delivery_address
+        decimal latitude
+        decimal longitude
+        decimal total
+        enum status "pending_payment | paid | failed"
+        datetime created_at
+    }
+    ORDERS {
+        int id PK
+        int checkout_id FK
+        int merchant_id FK
+        int supplier_id FK
+        decimal total
+        enum status "pending_payment | paid | processing | shipped | delivered"
+        datetime created_at
+    }
+    ORDER_ITEMS {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+    }
+    PAYMENTS {
+        int id PK
+        int checkout_id FK
+        string method
+        decimal amount
+        string moyasar_payment_id UK
+        enum status "pending | paid | failed"
+        string receipt_url "nullable"
+        datetime paid_at "nullable"
+    }
+    MESSAGES {
+        int id PK
+        int sender_id FK
+        int receiver_id FK
+        int product_id FK "nullable"
+        text body
+        datetime created_at
+    }
+```
+
+### Class Diagram
+
+```mermaid
+classDiagram
+    class User {
+        +int id
+        +string email
+        +string role
+        +set_password(password)
+        +check_password(password) bool
+        +update_profile(data)
+        +update_location(lat, lng, address)
+    }
+    class Product {
+        +int id
+        +decimal price
+        +int moq
+        +string stock_status
+        +update_price(new_price)
+        +set_stock_status(status)
+        +meets_moq(quantity) bool
+    }
+    class Cart {
+        +int id
+        +add_item(product_id, quantity)
+        +update_item(item_id, quantity)
+        +remove_item(item_id)
+        +calculate_total() decimal
+        +group_by_supplier() dict
+        +clear()
+    }
+    class CartItem {
+        +int quantity
+        +get_subtotal() decimal
+    }
+    class Checkout {
+        +int id
+        +decimal total
+        +string status
+        +string delivery_address
+        +mark_as_paid()
+        +mark_as_failed()
+    }
+    class Order {
+        +int id
+        +decimal total
+        +string status
+        +calculate_total() decimal
+        +update_status(new_status)
+    }
+    class OrderItem {
+        +int quantity
+        +decimal unit_price
+        +get_subtotal() decimal
+    }
+    class Payment {
+        +string moyasar_payment_id
+        +string status
+        +mark_paid(moyasar_id)
+        +mark_failed()
+    }
+    class Category
+    class Message
+    class AuthService {
+        +register(data) User
+        +login(email, password) token
+    }
+    class OrderService {
+        +create_checkout_from_cart(cart, delivery) Checkout
+        +update_order_status(order_id, status)
+    }
+    class PaymentService {
+        +create_payment(checkout, method) Payment
+        +handle_webhook(payload)
+        +verify_payment(moyasar_id) bool
+    }
+    class MapsService {
+        +is_within_riyadh(lat, lng) bool
+        +get_distance_km(origin, destination) float
+    }
+    class PricingCalculator {
+        +calculate_total_cost(material, packaging, labor) decimal
+        +calculate_cost_per_unit(total, quantity) decimal
+        +suggest_price(cost_per_unit, margin) decimal
+        +calculate_profit(price, cost_per_unit) decimal
+    }
+
+    User "1" --> "*" Product : lists
+    User "1" --> "0..1" Cart : owns
+    User "1" --> "*" Checkout : makes
+    User "1" --> "*" Order : places / fulfils
+    User "1" --> "*" Message : sends / receives
+    Category "1" --> "*" Product : classifies
+    Cart "1" *-- "*" CartItem : contains
+    Checkout "1" *-- "1..*" Order : splits into
+    Checkout "1" --> "*" Payment : paid by
+    Order "1" *-- "1..*" OrderItem : contains
+    Product "1" --> "*" CartItem : added as
+    Product "1" --> "*" OrderItem : ordered as
+    OrderService ..> Checkout : creates
+    OrderService ..> Order : creates
+    OrderService ..> MapsService : validates location
+    PaymentService ..> Payment : creates
+    AuthService ..> User : uses
+```
+
 
 ## 3. Sequence Diagrams
 ---
@@ -51,19 +268,127 @@ This section shows sequence diagrams for 3 key use cases in the Maksab platform.
 
 ### 3.1 Use Case 1: User Registration and Login
 
-**Description:** This use case is similar to that of a new user with an account on the Maksab platform and their first session the user must first complete the registraton form and select merchant role this user interface send the data to the backend which check the database to ensure the email addres is not already in use if it is user receive an error message the backend on the other hand record the password and stores the account then when the user start the correspond input is verified using the recorded hash and if possible jwt code is generated which the backend stores and sends with each final order We never compar our plan to the script plan because it doesnot expose the entire databas
+**Description:** This use case is similar to that of a new user with an account on the Maksab platform and their first session the user must first complete the registraton form and select merchant role this user interface sends the data to the backend which checks the database to ensure the email address is not already in use If it is user receives an error message the backend on the other hand records the password and stores the account then when the user starts the corresponding input is verified using the recorded hash and if possible jwt code is generated which the backend stores and sends with each final order We never compared our plan to the script plan because it doesnot expose the entire databas
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Frontend
+    participant Backend
+    participant Database
+
+    User->>Frontend: Fill registration form & pick role
+    Frontend->>Backend: POST /api/auth/register
+    Backend->>Database: Check if email exists
+    Database-->>Backend: Email check result
+
+    alt Email exists
+        Backend-->>Frontend: Error: Email already registered
+        Frontend-->>User: Show registration error
+    else Email new
+        Backend->>Backend: Hash password
+        Backend->>Database: Save new user
+        Database-->>Backend: User saved
+        Backend-->>Frontend: Account created
+        Frontend-->>User: Show success message
+    end
+
+    User->>Frontend: Enter email & password
+    Frontend->>Backend: POST /api/auth/login
+    Backend->>Database: Get user by email
+    Database-->>Backend: User data & password hash
+    Backend->>Backend: Check password
+
+    alt Password correct
+        Backend->>Backend: Generate JWT token
+        Backend-->>Frontend: Return token & profile
+        Frontend->>Frontend: Save token
+        Frontend-->>User: Open dashboard
+    else Password wrong
+        Backend-->>Frontend: Error: Invalid credentials
+        Frontend-->>User: Show login error
+    end
+```
 
 ---
 
 ### 3.2 Use Case 2: Checkout and Payment Flow
 
-**Description:** this application explains how sellers process purchas in hopping cart first they enter the delivery addres found on the card and click the checkout button then they verify that the postal code is in riyadh and scan the product in the cart according to the seller they create payment form and enter the details of the paid order for each busine this information is sent directly from the browser to Myasar then forwarded to our payment server the user interface then redirects it to the payment server to create recipient once the bank transfer is complete the seller contacts their bank for confirmation Myasar notifi the payment server via web link that the payment has not been received before check its status myasar then verifies the payment If the payment is confirm all orders are considered paid the cart status changes to fail and the remain balance is deducted the seller is then notified that the payment has not been processed
+**Description:** this application explains how sellers process purchas in hopping cart first they enter the delivery addres found on the card and click the checkout button then they verify that the postal code is in riyadh and scan the products in the cart according to the seller they create payment form and enter the details of the paid order for each busine this information is sent directly from the browser to Myasar then forwarded to our payment server the user interface then redirects it to the payment server to create recipient once the bank transfer is complete the seller contacts their bank for confirmation Myasar notifi the payment server via web link that the payment has not been received before check its status myasar then verifies the payment If the payment is confirm all orders are considered paid the cart status changes to fail and the remain balance is deducted the seller is then notified that the payment has not been processed
+
+```mermaid
+sequenceDiagram
+    actor Merchant
+    participant Frontend
+    participant Backend
+    participant Maps as Google Maps
+    participant Database
+    participant Moyasar
+
+    Merchant->>Frontend: Select location on map
+    Frontend->>Maps: Load map & get location
+    Maps-->>Frontend: Return coordinates
+
+    Merchant->>Frontend: Click "Checkout"
+    Frontend->>Backend: POST /api/checkouts
+    Backend->>Backend: Check if inside Riyadh
+    Backend->>Database: Get cart items per supplier
+    Database-->>Backend: Cart items
+    Backend->>Database: Create checkout & orders (Status: Pending)
+    Database-->>Backend: Saved
+    Backend-->>Frontend: Return Checkout ID & Total
+
+    Merchant->>Frontend: Enter card details
+    Frontend->>Moyasar: Send card info for token
+    Moyasar-->>Frontend: Return payment token
+    Frontend->>Backend: POST /api/payments (Send token)
+    Backend->>Moyasar: Process payment
+    Moyasar-->>Backend: Return bank redirect link
+    Backend-->>Frontend: Send redirect link
+    Frontend->>Merchant: Redirect to bank verification
+
+    Merchant->>Moyasar: Complete bank verification
+    Moyasar-->>Backend: Webhook: Payment status update
+    Backend->>Moyasar: Verify payment status & amount
+    Moyasar-->>Backend: Confirmed
+
+    alt Payment Success
+        Backend->>Database: Update status to "Paid"
+        Backend->>Database: Clear cart
+        Backend-->>Moyasar: 200 OK
+        Frontend-->>Merchant: Show order confirmation
+    else Payment Failed
+        Backend->>Database: Update status to "Failed"
+        Backend-->>Moyasar: 200 OK
+        Frontend-->>Merchant: Show payment failed
+    end
+```
 
 ---
 
 ### 3.3 Use Case 3: Pricing Calculator
 
-**Description:** this use case shows how merchant estimate the selle price of product the Merchant enter the material packag and labor cost the number of units produc and the desire profit margin the backend first validat the number and if they are invalid it return an error that the frontend display otherwise it calculat the cost per unit the suggest sell price and the profit per unit then return them to be shown on the screen nothing is save since the calculator is stateles
+**Description:** this use case shows how merchant estimates the selle price of product the Merchant enters the material packag and labor costs the number of units produced and the desired profit margin the backend first validates the numbers and if they are invalid it returns an error that the frontend displays otherwise it calculates the cost per unit the suggest sell price and the profit per unit then returns them to be shown on the screen nothing is save since the calculator is stateles
+
+```mermaid
+sequenceDiagram
+    actor Merchant
+    participant Frontend
+    participant Backend
+
+    Merchant->>Frontend: Enter costs, quantity & profit %
+    Frontend->>Backend: POST /api/calculator/price
+
+    alt Valid numbers
+        Backend->>Backend: Calculate total & unit cost
+        Backend->>Backend: Calculate selling price & net profit
+        Backend-->>Frontend: Return calculated values
+        Frontend-->>Merchant: Show cost, price & profit
+    else Invalid numbers
+        Backend-->>Frontend: Error: Invalid input
+        Frontend-->>Merchant: Show input error
+    end
+```
 
 ---
 
