@@ -11,9 +11,31 @@
 ---
 
 
-## 1. System Architecture
+# 1. System Architecture
+
+## Overview
+Maksab uses a standard **Three-Tier Architecture** to separate the presentation layer, business logic, and database management. This ensures the system remains organized and easy to maintain.
+
 ---
 
+## 1.1 Architecture Components
+
+* **Frontend:** Built with **React.js** as a Single Page Application (SPA). It provides a responsive user interface for both Merchants and Suppliers to manage products, carts, and calculations.
+* **Backend:** Built with **Python Flask** and placed behind **Nginx** as a reverse proxy. It handles REST API routing, user authentication (JWT), and core business logic.
+* **Database:** Uses **PostgreSQL** with **SQLAlchemy ORM** to manage structured tables for users, products, carts, checkouts, and orders.
+* **External Services:**
+  * **Google Maps API:** Used for interactive location selection and verifying delivery coordinates within Riyadh boundaries.
+  * **Moyasar Payment API:** Used to process credit card payments securely and receive asynchronous updates via webhooks.
+
+---
+
+## 1.2 Data Flow Steps
+
+1. **User Request:** The user interacts with the React frontend (e.g., placing an order, logging in, or running cost calculations).
+2. **API Call:** React sends an HTTP request containing a JSON payload and JWT token to Nginx, which routes it to Flask.
+3. **Logic Processing:** Flask checks authentication permissions, validates input data, and processes business logic.
+4. **Database Query:** Flask interacts with PostgreSQL via SQLAlchemy ORM to fetch or update system records.
+5. **JSON Response:** Flask sends back a JSON response to React, which updates the screen immediately.
 
 
 ## 2. Database Design
@@ -27,10 +49,64 @@
 
 
 
-## 4. API Specifications
+# 4. API Specifications
+
+## Overview
+All internal endpoints use the base path `/api`. Requests and responses exchange data in standard JSON format. Protected routes require a valid JWT Bearer token in the `Authorization` header.
+
 ---
 
+## External Integrations
 
+* **Google Maps API:** Displays map interfaces on the frontend for location pinning and coordinate extraction.
+* **Moyasar API:** Manages payment processing, 3D Secure bank redirects, and webhook payment confirmations.
+
+---
+
+## Core API Endpoints
+
+### 1. Authentication
+* `POST /api/auth/register` - Registers a new user account (Merchant or Supplier).
+* `POST /api/auth/login` - Authenticates user credentials and returns a JWT token.
+
+### 2. Products
+* `GET /api/products` - Fetches available products with optional filtering.
+* `POST /api/products` - Adds a new product listing (Suppliers only).
+
+### 3. Cart & Checkout
+* `POST /api/cart` - Updates or adds items to the active cart.
+* `POST /api/checkouts` - Converts cart items into orders and validates Riyadh delivery boundaries.
+
+### 4. Pricing Calculator
+* `POST /api/calculator/price` - Calculates material, packaging, and labor inputs to output unit production costs and suggested pricing.
+
+---
+
+## Request & Response Example
+
+### Endpoint: `POST /api/calculator/price`
+
+**Request Payload:**
+```json
+{
+  "material_cost": 20.0,
+  "packaging_cost": 5.0,
+  "labor_cost": 10.0,
+  "quantity": 10,
+  "profit_margin": 30
+}
+```
+----
+### Response Example (200 OK)
+
+```json
+{
+  "total_production_cost": 35.0,
+  "cost_per_unit": 3.5,
+  "suggested_price_per_unit": 5.0,
+  "expected_profit_per_unit": 1.5
+}
+```
 
 
 ## 5. SCM and QA Strategies
