@@ -20,7 +20,7 @@ business-service partners together in one place.
 ## Project Stages
 
 - [Stage 1 – Team Formation and Idea Development](Stage1/README.md)
-- [Stage 2 – Coming soon](Stage2/README.md)
+- [Stage 2 – Project Charter](Stage2/README.md)
 - [Stage 3 – Coming soon](Stage3/README.md)
 
 ## Team
