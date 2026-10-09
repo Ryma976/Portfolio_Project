@@ -33,13 +33,19 @@ Maksab platform uses a **Three-Tier Architecture**:
 Maksab uses a **Three-Tier Architecture** to separate the user interface, backend processing, and data storage. This setup keeps the application organized and easy to maintain.
 
 ---
+# 1. System Architecture
+
+## Overview
+Maksab uses a **Three-Tier Architecture** to separate the user interface, backend processing, and data storage. This setup keeps the application organized and easy to maintain.
+
+---
 
 ## 1.1 High-Level Architecture Diagram
 
 ```mermaid
 graph TD
     subgraph Frontend["1. Presentation Tier"]
-        ReactApp["React.js SPA<br/>(Merchant & Supplier UI)"]
+        ReactApp["React.js SPA<br/>Merchant & Supplier UI"]
     end
 
     subgraph Backend["2. Logic Tier"]
@@ -70,5 +76,5 @@ graph TD
     Flask -->|Validate Riyadh Boundary| GoogleMaps
     Flask -->|Process Payment & Webhook| Moyasar
     
-    Flask <-->|Read / Write Data (SQLAlchemy)| Postgres
+    Flask <-->|Read and Write Data via SQLAlchemy| Postgres
 ```
