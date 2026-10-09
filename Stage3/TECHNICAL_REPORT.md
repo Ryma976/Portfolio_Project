@@ -572,7 +572,7 @@ This Technical Documentation includes:
 **Reem Alanazi**
 **Bayadir Aldossari**
 **Shomukh Aldosari**
-**Shahad Alharb**
+**Shahad Alharbi**
 
 ### Document Version
 
